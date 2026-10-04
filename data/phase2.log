@@ -1,0 +1,34 @@
+13:25:03 WARNING kitapai.data.sources: works dump'ı yok — bu sinyal olmadan devam edilecek
+13:25:03 INFO    kitapai.data.catalog: taşma alanı: data/tmp (en fazla 5.1 GiB, 6.9 GiB boş)
+13:25:03 INFO    kitapai.data.catalog: sürdürülüyor: 'prelim' tablosu mevcut, sonraki aşamadan devam
+13:25:03 INFO    kitapai.data.catalog: authors                 —      (tamamlanmış, atlandı)
+13:25:03 INFO    kitapai.data.catalog: ratings                 —      (tamamlanmış, atlandı)
+13:25:03 INFO    kitapai.data.catalog: readers                 —      (tamamlanmış, atlandı)
+13:25:03 INFO    kitapai.data.catalog: prelim                  —      (tamamlanmış, atlandı)
+13:33:47 INFO    kitapai.data.catalog: editions        2,426,847 satır  (524.3s)
+13:33:56 INFO    kitapai.data.catalog: candidates      2,429,885 satır  (8.6s)
+13:34:03 INFO    kitapai.data.catalog: work_authors    2,396,109 satır  (7.4s)
+13:34:53 INFO    kitapai.data.catalog: books           2,429,885 satır  (49.7s)
+13:35:59 INFO    kitapai.data.catalog: fts_index           hazır      (64.1s)
+13:36:01 INFO    kitapai.data.catalog: katalog hazır: 2,429,885 kitap (658.4s)
+{
+  "stages": {
+    "authors": 15409830,
+    "prelim": 2429885,
+    "editions": 2426847,
+    "candidates": 2429885,
+    "work_authors": 2396109,
+    "books": 2429885
+  },
+  "seconds": {
+    "editions": 524.26,
+    "candidates": 8.63,
+    "work_authors": 7.43,
+    "books": 49.7,
+    "fts_index": 64.06,
+    "total": 658.38
+  },
+  "books": 2429885,
+  "catalog_path": "/home/umutcagand/Masaüstü/kitapai/data/catalog.duckdb",
+  "dump_date": null
+}

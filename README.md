@@ -226,6 +226,25 @@ cd clients/ios
 uygulama adını, sürümü ve ağ ayarlarını plist'e işler (`scripts/patch_plist.py`).
 Ayrıntı: [`clients/ios/README.md`](clients/ios/README.md).
 
+## Büyük dosyalar (modeller, veri, IPA)
+
+Kod bu depoda; eğitilmiş adaptörler, katalog, eğitim verisi, Open Library dump'ları ve iOS IPA'sı
+git'e sığmadığı için [Releases](../../releases) altında (`v2.0-artifacts`) duruyor. Hazır
+modelle çalıştırmak için:
+
+```bash
+gh release download v2.0-artifacts -p 'kitapai-select.tar.zst' -p 'kitapai-write.tar.zst' \
+  -p 'catalog.duckdb.part*' -p 'data-vectors.tar.zst'
+mkdir -p models data
+tar --zstd -xf kitapai-select.tar.zst -C models && tar --zstd -xf kitapai-write.tar.zst -C models
+tar --zstd -xf data-vectors.tar.zst -C data
+cat catalog.duckdb.part* > data/catalog.duckdb
+kitapai serve --port 8765
+```
+
+Adaptörler `Qwen/Qwen2.5-3B-Instruct` tabanı üzerinedir; taban modelin lisansı (Qwen Research
+License) geçerlidir. Ayrıntı ve sağlama toplamları release notlarında.
+
 ## Proje düzeni
 
 ```

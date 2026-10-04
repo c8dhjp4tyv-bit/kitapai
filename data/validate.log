@@ -1,0 +1,20 @@
+20:22:57 INFO    kitapai.data.sources: works        yerel  ol_dump_works_2026-08-31.txt.gz
+20:23:21 HTTP Request: HEAD https://openlibrary.org/data/ol_dump_editions_latest.txt.gz "HTTP/1.1 302 Found"
+20:23:23 HTTP Request: HEAD https://archive.org/download/ol_dump_2026-08-31/ol_dump_editions_2026-08-31.txt.gz "HTTP/1.1 302 Found"
+20:23:24 HTTP Request: HEAD https://ia800909.us.archive.org/1/items/ol_dump_2026-08-31/ol_dump_editions_2026-08-31.txt.gz "HTTP/1.1 200 OK"
+20:23:24 INFO    kitapai.data.sources: editions     uzak   https://ia800909.us.archive.org/1/items/ol_dump_2026-08-31/ol_dump_editions_2026-08-31.txt.gz (diske yazılmadan akıtılacak)
+20:23:24 INFO    kitapai.data.sources: authors      yerel  ol_dump_authors_2026-08-31.txt.gz
+20:23:24 INFO    kitapai.data.sources: ratings      yerel  ol_dump_ratings_2026-08-31.txt.gz
+20:23:24 INFO    kitapai.data.sources: reading-log  yerel  ol_dump_reading-log_2026-08-31.txt.gz
+20:23:24 INFO    kitapai.data.catalog: uzak akış modu: dump'lar diske yazılmadan işlenecek (kopmalarda 20 denemeye kadar sürdürülür)
+20:23:39 INFO    kitapai.data.catalog: authors        15,409,830 satır  (14.7s)
+20:26:35 INFO    kitapai.data.catalog: works          21,494,401 satır  (176.9s)
+20:29:36 INFO    kitapai.data.catalog: editions        1,862,023 satır  (180.8s)
+20:29:37 INFO    kitapai.data.catalog: ratings           701,043 satır  (0.5s)
+20:29:40 INFO    kitapai.data.catalog: readers         3,314,590 satır  (3.4s)
+20:29:48 INFO    kitapai.data.catalog: candidates      2,443,831 satır  (7.8s)
+20:29:53 INFO    kitapai.data.catalog: work_authors    2,410,003 satır  (4.7s)
+20:30:16 INFO    kitapai.data.catalog: books           2,443,831 satır  (23.3s)
+20:31:03 INFO    kitapai.data.catalog: fts_index           hazır      (42.9s)
+20:31:04 INFO    kitapai.data.catalog: katalog hazır: 2,443,831 kitap (459.9s)
+SONUÇ: 2443831 {'authors': 15409830, 'works': 21494401, 'editions': 1862023, 'ratings': 701043, 'readers': 3314590, 'candidates': 2443831, 'work_authors': 2410003, 'books': 2443831}

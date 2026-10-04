@@ -1,0 +1,22 @@
+13:19:28 INFO    kitapai.data.catalog: taşma alanı: data/tmp (en fazla 2.8 GiB, 3.7 GiB boş)
+13:19:28 INFO    kitapai.data.catalog: sürdürülüyor: 'readers' tablosu mevcut, sonraki aşamadan devam
+13:19:28 INFO    kitapai.data.catalog: authors                 —      (tamamlanmış, atlandı)
+13:19:28 INFO    kitapai.data.catalog: ratings                 —      (tamamlanmış, atlandı)
+13:19:28 INFO    kitapai.data.catalog: readers                 —      (tamamlanmış, atlandı)
+13:24:29 INFO    kitapai.data.catalog: prelim          2,429,885 satır  (301.0s)
+13:24:29 INFO    kitapai.data.catalog: 'prelim' aşamasından sonra durduruldu (--stop-after). Devam için: kitapai data build --resume
+{
+  "stages": {
+    "authors": 15409830,
+    "ratings": 701043,
+    "readers": 3314590,
+    "prelim": 2429885
+  },
+  "seconds": {
+    "prelim": 301.02,
+    "total": 301.15
+  },
+  "books": 0,
+  "catalog_path": "/home/umutcagand/Masaüstü/kitapai/data/catalog.duckdb",
+  "dump_date": null
+}

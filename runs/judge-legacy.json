@@ -1,0 +1,46 @@
+[
+  {
+    "label": "referans",
+    "n": 100,
+    "mean_grade": 1.056,
+    "good_rate": 0.362,
+    "bad_rate": 0.306,
+    "no_pick": 0.0,
+    "random_grade": 0.639,
+    "ideal_grade": 1.503,
+    "normalized": 0.483
+  },
+  {
+    "label": "v1",
+    "n": 100,
+    "mean_grade": 1.009,
+    "good_rate": 0.338,
+    "bad_rate": 0.328,
+    "no_pick": 0.0,
+    "random_grade": 0.639,
+    "ideal_grade": 1.503,
+    "normalized": 0.428
+  },
+  {
+    "label": "v2",
+    "n": 100,
+    "mean_grade": 1.019,
+    "good_rate": 0.344,
+    "bad_rate": 0.325,
+    "no_pick": 0.0,
+    "random_grade": 0.639,
+    "ideal_grade": 1.503,
+    "normalized": 0.439
+  },
+  {
+    "label": "v3",
+    "n": 100,
+    "mean_grade": 1.059,
+    "good_rate": 0.366,
+    "bad_rate": 0.306,
+    "no_pick": 0.0,
+    "random_grade": 0.639,
+    "ideal_grade": 1.503,
+    "normalized": 0.486
+  }
+]

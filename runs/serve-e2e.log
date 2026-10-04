@@ -1,0 +1,53 @@
+INFO:     Started server process [2689662]
+INFO:     Waiting for application startup.
+10:44:41 INFO    kitapai.serve.catalog: katalog açıldı: /home/umutcagand/Masaüstü/kitapai/data/catalog.duckdb (2,429,885 kitap)
+10:44:42 INFO    kitapai.retrieval.dense: gömme indeksi yüklendi: 300,000 vektör × 384 boyut
+/home/umutcagand/Masaüstü/kitapai/.venv/lib/python3.12/site-packages/transformers/quantizers/auto.py:262: UserWarning: You passed `quantization_config` or equivalent parameters to `from_pretrained` but the model you're loading already has a `quantization_config` attribute. The `quantization_config` from the model will be used.
+  warnings.warn(warning_msg)
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:   0%|          | 1/434 [00:00<05:35,  1.29it/s]Loading weights:   5%|▌         | 23/434 [00:00<00:11, 35.06it/s]Loading weights:  13%|█▎        | 56/434 [00:00<00:04, 86.71it/s]Loading weights:  22%|██▏       | 97/434 [00:01<00:02, 149.76it/s]Loading weights:  29%|██▉       | 125/434 [00:01<00:01, 173.87it/s]Loading weights:  39%|███▉      | 171/434 [00:01<00:01, 239.68it/s]Loading weights:  47%|████▋     | 204/434 [00:01<00:01, 188.30it/s]Loading weights:  53%|█████▎    | 231/434 [00:01<00:01, 181.70it/s]Loading weights:  62%|██████▏   | 268/434 [00:01<00:00, 219.76it/s]Loading weights:  71%|███████   | 309/434 [00:01<00:00, 261.79it/s]Loading weights:  79%|███████▊  | 341/434 [00:02<00:00, 272.19it/s]Loading weights:  86%|████████▌ | 372/434 [00:02<00:00, 273.32it/s]Loading weights:  94%|█████████▍| 409/434 [00:02<00:00, 297.13it/s]Loading weights: 100%|██████████| 434/434 [00:02<00:00, 188.54it/s]
+10:44:54 INFO    kitapai.serve.engine: LoRA adaptörleri bağlandı: select, write
+10:44:54 INFO    kitapai.serve.engine: model yüklendi: unsloth/Qwen2.5-3B-Instruct-bnb-4bit (cuda, 10.2s)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2037.91it/s]
+[1mBertModel LOAD REPORT[0m from: intfloat/multilingual-e5-small
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Both `max_new_tokens` (=60) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=310) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+10:45:10 INFO    kitapai.serve.pipeline: öneri 0f586e45b2ec: 3 sonuç, 40 aday, 16145 ms (getir 7194 · seç 2163 · yaz 6779, 327 kr)
+10:45:10 INFO    kitapai.serve.app: hazır — katalog 2,429,885, dump None, istem sürümü 3.0
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8765 (Press CTRL+C to quit)
+INFO:     127.0.0.1:36888 - "GET /health HTTP/1.1" 200 OK
+Both `max_new_tokens` (=60) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=310) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+10:45:22 INFO    kitapai.serve.pipeline: öneri 4a99aa1e5e93: 3 sonuç, 40 aday, 10438 ms (getir 2289 · seç 1171 · yaz 6977, 390 kr)
+INFO:     127.0.0.1:36898 - "POST /api/recommend HTTP/1.1" 200 OK
+Both `max_new_tokens` (=60) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=310) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+10:45:31 INFO    kitapai.serve.pipeline: öneri 1451f934087d: 3 sonuç, 40 aday, 9599 ms (getir 1526 · seç 1146 · yaz 6926, 389 kr)
+INFO:     127.0.0.1:36898 - "POST /api/recommend HTTP/1.1" 200 OK
+Both `max_new_tokens` (=60) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=310) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+10:45:42 INFO    kitapai.serve.pipeline: öneri 80a4d9ee8484: 3 sonuç, 40 aday, 10638 ms (getir 1770 · seç 1401 · yaz 7464, 442 kr)
+INFO:     127.0.0.1:36898 - "POST /api/recommend HTTP/1.1" 200 OK
+Both `max_new_tokens` (=60) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=310) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+10:45:53 INFO    kitapai.serve.pipeline: öneri edf7c7c588af: 3 sonuç, 40 aday, 11223 ms (getir 1686 · seç 1310 · yaz 8225, 454 kr)
+INFO:     127.0.0.1:36898 - "POST /api/recommend HTTP/1.1" 200 OK
+Both `max_new_tokens` (=60) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=310) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+10:46:03 INFO    kitapai.serve.pipeline: öneri a2f91ced1521: 3 sonuç, 40 aday, 9843 ms (getir 1258 · seç 1391 · yaz 7193, 391 kr)
+INFO:     127.0.0.1:36898 - "POST /api/recommend HTTP/1.1" 200 OK
+Both `max_new_tokens` (=60) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=310) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+10:46:15 INFO    kitapai.serve.pipeline: öneri 8b96dc9b3400: 3 sonuç, 40 aday, 11534 ms (getir 1232 · seç 1137 · yaz 9163, 554 kr)
+INFO:     127.0.0.1:36898 - "POST /api/recommend HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2689662]

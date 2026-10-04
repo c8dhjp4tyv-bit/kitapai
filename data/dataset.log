@@ -1,0 +1,63 @@
+18:22:34 INFO    kitapai.dataset.build: çalışma havuzu: 150,000 kitap (90,000 popüler + 60,000 kuyruk)
+18:22:50 INFO    kitapai.dataset.build: 2,000 / 40,000 örnek
+18:23:05 INFO    kitapai.dataset.build: 4,000 / 40,000 örnek
+18:23:20 INFO    kitapai.dataset.build: 6,000 / 40,000 örnek
+18:23:36 INFO    kitapai.dataset.build: 8,000 / 40,000 örnek
+18:23:51 INFO    kitapai.dataset.build: 10,000 / 40,000 örnek
+18:24:07 INFO    kitapai.dataset.build: 12,000 / 40,000 örnek
+18:24:22 INFO    kitapai.dataset.build: 14,000 / 40,000 örnek
+18:24:39 INFO    kitapai.dataset.build: 16,000 / 40,000 örnek
+18:24:54 INFO    kitapai.dataset.build: 18,000 / 40,000 örnek
+18:25:11 INFO    kitapai.dataset.build: 20,000 / 40,000 örnek
+18:25:27 INFO    kitapai.dataset.build: 22,000 / 40,000 örnek
+18:25:42 INFO    kitapai.dataset.build: 24,000 / 40,000 örnek
+18:25:58 INFO    kitapai.dataset.build: 26,000 / 40,000 örnek
+18:26:14 INFO    kitapai.dataset.build: 28,000 / 40,000 örnek
+18:26:30 INFO    kitapai.dataset.build: 30,000 / 40,000 örnek
+18:26:46 INFO    kitapai.dataset.build: 32,000 / 40,000 örnek
+18:27:02 INFO    kitapai.dataset.build: 34,000 / 40,000 örnek
+18:27:18 INFO    kitapai.dataset.build: 36,000 / 40,000 örnek
+18:27:36 INFO    kitapai.dataset.build: 38,000 / 40,000 örnek
+18:28:01 INFO    kitapai.dataset.build: 40,000 / 40,000 örnek
+18:28:06 INFO    kitapai.dataset.build: train  → /home/umutcagand/Masaüstü/kitapai/data/dataset/train.jsonl (38,400 örnek)
+18:28:06 INFO    kitapai.dataset.build: valid  → /home/umutcagand/Masaüstü/kitapai/data/dataset/valid.jsonl (1,600 örnek)
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+18:28:14 INFO    kitapai.dataset.build: token uzunluğu: ortalama 2237, medyan 2254, p95 2560, max 2782
+18:28:14 INFO    kitapai.dataset.build: token bütçesi uygun (p95 2560 ≤ 3072)
+18:28:14 INFO    kitapai.dataset.build: veri kümesi hazır: 40,000 örnek, 79,286 benzersiz kitap, ~82,880,125 token
+{
+  "total": 40000,
+  "train": 38400,
+  "valid": 1600,
+  "by_style": {
+    "tema": 8332,
+    "durum": 7725,
+    "tur_ruh": 14268,
+    "kisit": 3823,
+    "benzer": 2894,
+    "olumsuz": 1828,
+    "belirsiz": 1130
+  },
+  "by_task": {
+    "grounded_recommend": 40000
+  },
+  "picks_histogram": {
+    "1": 37,
+    "2": 6208,
+    "3": 21765,
+    "4": 8010,
+    "5": 3980
+  },
+  "unique_books": 79286,
+  "avg_candidates": 12.0,
+  "avg_chars": 6630.4,
+  "approx_tokens": 82880125,
+  "token_lengths": {
+    "ortalama": 2237,
+    "medyan": 2254,
+    "p95": 2560,
+    "max": 2782
+  },
+  "over_budget_ratio": 0.0
+}

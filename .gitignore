@@ -1,8 +1,9 @@
 # Veri ve model çıktıları — asla depoya girmez
-/data/
+# Büyük veri ve modeller git'e girmez; GitHub Release ekleri olarak yayınlanır
+# (bkz. runs/publish-assets.sh ve README "Büyük dosyalar").
+/data/*
+!/data/*.log
 /models/
-/runs/*
-!/runs/*.sh
 *.duckdb
 *.duckdb.wal
 *.parquet

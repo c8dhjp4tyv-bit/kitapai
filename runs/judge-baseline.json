@@ -1,0 +1,13 @@
+[
+  {
+    "label": "referans",
+    "n": 200,
+    "mean_grade": 1.034,
+    "good_rate": 0.35,
+    "bad_rate": 0.316,
+    "no_pick": 0.0,
+    "random_grade": 0.645,
+    "ideal_grade": 1.513,
+    "normalized": 0.448
+  }
+]

@@ -1,0 +1,56 @@
+/home/umutcagand/Masaüstü/kitapai/.venv/lib/python3.12/site-packages/transformers/quantizers/auto.py:262: UserWarning: You passed `quantization_config` or equivalent parameters to `from_pretrained` but the model you're loading already has a `quantization_config` attribute. The `quantization_config` from the model will be used.
+  warnings.warn(warning_msg)
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:   0%|          | 1/434 [00:00<01:40,  4.31it/s]Loading weights:   8%|▊         | 35/434 [00:00<00:03, 129.19it/s]Loading weights:  17%|█▋        | 73/434 [00:00<00:01, 208.81it/s]Loading weights:  26%|██▌       | 111/434 [00:00<00:01, 261.93it/s]Loading weights:  36%|███▌      | 157/434 [00:00<00:00, 322.50it/s]Loading weights:  44%|████▍     | 193/434 [00:00<00:00, 327.52it/s]Loading weights:  53%|█████▎    | 229/434 [00:00<00:00, 326.76it/s]Loading weights:  61%|██████    | 265/434 [00:00<00:00, 332.56it/s]Loading weights:  69%|██████▉   | 301/434 [00:01<00:00, 332.30it/s]Loading weights:  78%|███████▊  | 337/434 [00:01<00:00, 326.23it/s]Loading weights:  87%|████████▋ | 376/434 [00:01<00:00, 337.91it/s]Loading weights:  97%|█████████▋| 421/434 [00:01<00:00, 367.80it/s]Loading weights: 100%|██████████| 434/434 [00:01<00:00, 304.63it/s]
+18:58:02 INFO    kitapai.serve.engine: LoRA adaptörleri bağlandı: select, write
+18:58:02 INFO    kitapai.serve.engine: model yüklendi: unsloth/Qwen2.5-3B-Instruct-bnb-4bit (cuda, 8.5s)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=450) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+19:05:07 INFO    kitapai.evaluation: değerlendirme (write) bitti: json=1.00 kimlik=0.00 isabet=0.00/0.00 türkçe=1.00
+   değerlendirme · write ·    
+        transformers ·        
+unsloth/Qwen2.5-3B-Instruct-bn
+            b-4bit            
+┏━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ ölçüt           ┃    değer ┃
+┡━━━━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+│ n               │      100 │
+│ json_valid      │      1.0 │
+│ repaired        │      0.0 │
+│ id_valid        │      0.0 │
+│ limit_respected │      0.0 │
+│ pick_precision  │      0.0 │
+│ pick_recall     │      0.0 │
+│ turkish_ratio   │      1.0 │
+│ copy_ratio      │      0.0 │
+│ distinct2       │   0.5809 │
+│ conf_correct    │      0.0 │
+│ conf_wrong      │      0.0 │
+│ conf_gap        │      0.0 │
+│ formal_ratio    │      0.0 │
+│ id_coverage     │      1.0 │
+│ avg_picks       │      0.0 │
+│ avg_why_chars   │ 135.8262 │
+└─────────────────┴──────────┘

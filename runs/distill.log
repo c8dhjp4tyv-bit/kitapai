@@ -1,0 +1,84 @@
+00:11:56 INFO    kitapai.dataset.distill: ilerleme 250/12000 · kabul 245 · ret 5 · hata 0 · token girdi 250,986 çıktı 56,729
+00:12:23 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.9 sn sonra 2/8. deneme
+00:12:54 INFO    kitapai.dataset.distill: ilerleme 500/12000 · kabul 490 · ret 10 · hata 1 · token girdi 499,162 çıktı 111,663
+00:13:20 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.3 sn sonra 2/8. deneme
+00:13:47 INFO    kitapai.dataset.distill: ilerleme 750/12000 · kabul 736 · ret 14 · hata 3 · token girdi 748,049 çıktı 167,052
+00:14:06 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.3 sn sonra 2/8. deneme
+00:14:37 INFO    kitapai.dataset.distill: ilerleme 1000/12000 · kabul 984 · ret 16 · hata 3 · token girdi 999,011 çıktı 224,063
+00:15:30 INFO    kitapai.dataset.distill: ilerleme 1250/12000 · kabul 1229 · ret 21 · hata 3 · token girdi 1,246,835 çıktı 279,372
+00:16:25 INFO    kitapai.dataset.distill: ilerleme 1500/12000 · kabul 1476 · ret 24 · hata 3 · token girdi 1,498,437 çıktı 336,975
+00:17:15 INFO    kitapai.dataset.distill: ilerleme 1750/12000 · kabul 1722 · ret 28 · hata 3 · token girdi 1,745,366 çıktı 392,897
+00:17:55 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.7 sn sonra 2/8. deneme
+00:17:59 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.8 sn sonra 2/8. deneme
+00:18:10 INFO    kitapai.dataset.distill: ilerleme 2000/12000 · kabul 1969 · ret 31 · hata 3 · token girdi 1,989,643 çıktı 444,988
+00:19:00 INFO    kitapai.dataset.distill: ilerleme 2250/12000 · kabul 2216 · ret 34 · hata 3 · token girdi 2,236,919 çıktı 500,979
+00:19:49 INFO    kitapai.dataset.distill: ilerleme 2500/12000 · kabul 2460 · ret 40 · hata 3 · token girdi 2,483,943 çıktı 556,356
+00:20:41 INFO    kitapai.dataset.distill: ilerleme 2750/12000 · kabul 2703 · ret 47 · hata 3 · token girdi 2,735,155 çıktı 614,031
+00:21:29 INFO    kitapai.dataset.distill: ilerleme 3000/12000 · kabul 2951 · ret 49 · hata 3 · token girdi 2,983,828 çıktı 668,972
+00:22:23 INFO    kitapai.dataset.distill: ilerleme 3250/12000 · kabul 3199 · ret 51 · hata 3 · token girdi 3,232,068 çıktı 724,019
+00:23:17 INFO    kitapai.dataset.distill: ilerleme 3500/12000 · kabul 3447 · ret 53 · hata 4 · token girdi 3,480,251 çıktı 779,485
+00:24:06 INFO    kitapai.dataset.distill: ilerleme 3750/12000 · kabul 3690 · ret 60 · hata 5 · token girdi 3,725,577 çıktı 833,314
+00:24:52 INFO    kitapai.dataset.distill: ilerleme 4000/12000 · kabul 3935 · ret 65 · hata 7 · token girdi 3,972,815 çıktı 888,579
+00:25:39 INFO    kitapai.dataset.distill: ilerleme 4250/12000 · kabul 4183 · ret 67 · hata 7 · token girdi 4,221,494 çıktı 943,322
+00:26:26 INFO    kitapai.dataset.distill: ilerleme 4500/12000 · kabul 4431 · ret 69 · hata 7 · token girdi 4,467,459 çıktı 997,429
+00:27:14 INFO    kitapai.dataset.distill: ilerleme 4750/12000 · kabul 4680 · ret 70 · hata 7 · token girdi 4,711,691 çıktı 1,051,061
+00:28:04 INFO    kitapai.dataset.distill: ilerleme 5000/12000 · kabul 4926 · ret 74 · hata 8 · token girdi 4,961,780 çıktı 1,106,881
+00:29:01 INFO    kitapai.dataset.distill: ilerleme 5250/12000 · kabul 5171 · ret 79 · hata 8 · token girdi 5,208,006 çıktı 1,162,067
+00:29:53 INFO    kitapai.dataset.distill: ilerleme 5500/12000 · kabul 5419 · ret 81 · hata 8 · token girdi 5,459,501 çıktı 1,217,817
+00:30:43 INFO    kitapai.dataset.distill: ilerleme 5750/12000 · kabul 5664 · ret 86 · hata 9 · token girdi 5,702,844 çıktı 1,271,436
+00:31:34 INFO    kitapai.dataset.distill: ilerleme 6000/12000 · kabul 5910 · ret 90 · hata 9 · token girdi 5,951,547 çıktı 1,326,466
+00:32:27 INFO    kitapai.dataset.distill: ilerleme 6250/12000 · kabul 6156 · ret 94 · hata 10 · token girdi 6,198,987 çıktı 1,380,921
+00:33:21 INFO    kitapai.dataset.distill: ilerleme 6500/12000 · kabul 6402 · ret 98 · hata 10 · token girdi 6,449,556 çıktı 1,437,168
+00:34:10 INFO    kitapai.dataset.distill: ilerleme 6750/12000 · kabul 6648 · ret 102 · hata 10 · token girdi 6,697,159 çıktı 1,491,353
+00:35:04 INFO    kitapai.dataset.distill: ilerleme 7000/12000 · kabul 6897 · ret 103 · hata 11 · token girdi 6,946,725 çıktı 1,547,371
+00:35:52 INFO    kitapai.dataset.distill: ilerleme 7250/12000 · kabul 7141 · ret 109 · hata 12 · token girdi 7,194,831 çıktı 1,602,213
+00:36:39 INFO    kitapai.dataset.distill: ilerleme 7500/12000 · kabul 7384 · ret 116 · hata 12 · token girdi 7,442,644 çıktı 1,657,301
+00:37:35 INFO    kitapai.dataset.distill: ilerleme 7750/12000 · kabul 7631 · ret 119 · hata 12 · token girdi 7,691,156 çıktı 1,712,801
+00:38:29 INFO    kitapai.dataset.distill: ilerleme 8000/12000 · kabul 7874 · ret 126 · hata 13 · token girdi 7,939,525 çıktı 1,768,152
+00:39:21 INFO    kitapai.dataset.distill: ilerleme 8250/12000 · kabul 8120 · ret 130 · hata 13 · token girdi 8,188,567 çıktı 1,824,460
+00:40:09 INFO    kitapai.dataset.distill: ilerleme 8500/12000 · kabul 8361 · ret 139 · hata 15 · token girdi 8,438,365 çıktı 1,881,012
+00:41:03 INFO    kitapai.dataset.distill: ilerleme 8750/12000 · kabul 8605 · ret 145 · hata 15 · token girdi 8,687,481 çıktı 1,935,759
+00:41:52 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.8 sn sonra 2/8. deneme
+00:41:56 INFO    kitapai.dataset.distill: ilerleme 9000/12000 · kabul 8851 · ret 149 · hata 16 · token girdi 8,937,176 çıktı 1,991,832
+00:42:44 INFO    kitapai.dataset.distill: ilerleme 9250/12000 · kabul 9099 · ret 151 · hata 16 · token girdi 9,185,152 çıktı 2,046,789
+00:43:31 INFO    kitapai.dataset.distill: ilerleme 9500/12000 · kabul 9342 · ret 158 · hata 18 · token girdi 9,433,504 çıktı 2,102,565
+00:44:19 INFO    kitapai.dataset.distill: ilerleme 9750/12000 · kabul 9589 · ret 161 · hata 18 · token girdi 9,680,546 çıktı 2,157,654
+00:45:06 INFO    kitapai.dataset.distill: ilerleme 10000/12000 · kabul 9835 · ret 165 · hata 18 · token girdi 9,926,254 çıktı 2,211,254
+00:45:53 INFO    kitapai.dataset.distill: ilerleme 10250/12000 · kabul 10082 · ret 168 · hata 19 · token girdi 10,173,538 çıktı 2,265,555
+00:46:37 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.2 sn sonra 2/8. deneme
+00:46:47 INFO    kitapai.dataset.distill: ilerleme 10500/12000 · kabul 10330 · ret 170 · hata 20 · token girdi 10,422,169 çıktı 2,320,688
+00:47:07 WARNING kitapai.data.http: gemini-3.8-flash isteği başarısız (HTTPStatusError) — 1.8 sn sonra 2/8. deneme
+00:47:48 INFO    kitapai.dataset.distill: ilerleme 10750/12000 · kabul 10573 · ret 177 · hata 22 · token girdi 10,672,260 çıktı 2,376,334
+00:48:46 INFO    kitapai.dataset.distill: ilerleme 11000/12000 · kabul 10818 · ret 182 · hata 22 · token girdi 10,920,310 çıktı 2,431,231
+00:49:46 INFO    kitapai.dataset.distill: ilerleme 11250/12000 · kabul 11065 · ret 185 · hata 22 · token girdi 11,166,353 çıktı 2,486,125
+00:50:48 INFO    kitapai.dataset.distill: ilerleme 11500/12000 · kabul 11311 · ret 189 · hata 23 · token girdi 11,414,913 çıktı 2,541,295
+00:51:50 INFO    kitapai.dataset.distill: ilerleme 11750/12000 · kabul 11558 · ret 192 · hata 23 · token girdi 11,665,278 çıktı 2,598,377
+00:53:33 INFO    kitapai.dataset.distill: ilerleme 12000/12000 · kabul 11802 · ret 198 · hata 24 · token girdi 11,916,010 çıktı 2,655,351
+00:53:33 INFO    kitapai.dataset.distill: damıtma: 11802 kabul, 198 ret, 0 atlandı (2555 sn)
+{
+  "attempted": 12000,
+  "accepted": 11802,
+  "rejected": 198,
+  "skipped_done": 0,
+  "errors": 24,
+  "reasons": {
+    "resmi hitap (siz)": 163,
+    "hata: DistillError": 24,
+    "beklenen ['a6', 'a8', 'a12', 'a10', 'a1'": 1,
+    "çengel biçimi": 7,
+    "beklenen ['a9', 'a11', 'a1'], gelen ['a9": 1,
+    "beklenen ['a8', 'a10', 'a11', 'a1'], gel": 1,
+    "beklenen ['a10', 'a4', 'a11', 'a8'], gel": 1
+  },
+  "usage": {
+    "requests": 12000,
+    "prompt_tokens": 11916010,
+    "output_tokens": 2655351,
+    "thought_tokens": 0,
+    "per_request": {
+      "prompt": 993,
+      "output": 221,
+      "thought": 0
+    }
+  }
+}

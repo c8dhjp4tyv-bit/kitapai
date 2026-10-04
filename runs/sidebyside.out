@@ -1,0 +1,80 @@
+/home/umutcagand/Masaüstü/kitapai/.venv/lib/python3.12/site-packages/transformers/quantizers/auto.py:262: UserWarning: You passed `quantization_config` or equivalent parameters to `from_pretrained` but the model you're loading already has a `quantization_config` attribute. The `quantization_config` from the model will be used.
+  warnings.warn(warning_msg)
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:   0%|          | 1/434 [00:02<14:26,  2.00s/it]Loading weights:   5%|▍         | 21/434 [00:02<00:29, 13.79it/s]Loading weights:  11%|█         | 47/434 [00:02<00:11, 35.01it/s]Loading weights:  17%|█▋        | 75/434 [00:02<00:05, 61.09it/s]Loading weights:  23%|██▎       | 101/434 [00:02<00:03, 87.69it/s]Loading weights:  31%|███       | 135/434 [00:02<00:02, 127.32it/s]Loading weights:  39%|███▉      | 169/434 [00:02<00:01, 162.00it/s]Loading weights:  46%|████▌     | 200/434 [00:02<00:01, 189.60it/s]Loading weights:  53%|█████▎    | 228/434 [00:02<00:00, 209.65it/s]Loading weights:  59%|█████▉    | 256/434 [00:02<00:00, 218.31it/s]Loading weights:  65%|██████▌   | 283/434 [00:03<00:00, 169.87it/s]Loading weights:  70%|███████   | 305/434 [00:03<00:00, 170.96it/s]Loading weights:  75%|███████▌  | 326/434 [00:03<00:00, 163.07it/s]Loading weights:  80%|████████  | 349/434 [00:03<00:00, 176.73it/s]Loading weights:  86%|████████▌ | 373/434 [00:03<00:00, 191.01it/s]Loading weights:  91%|█████████ | 394/434 [00:03<00:00, 168.72it/s]Loading weights:  95%|█████████▌| 413/434 [00:04<00:00, 144.58it/s]Loading weights: 100%|██████████| 434/434 [00:04<00:00, 106.21it/s]
+09:28:16 INFO    kitapai.serve.engine: LoRA adaptörü bağlandı: models/kitapai-lora-v2
+09:28:16 INFO    kitapai.serve.engine: model yüklendi: unsloth/Qwen2.5-3B-Instruct-bnb-4bit (cuda, 13.5s)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:   0%|          | 1/434 [00:00<02:32,  2.83it/s]Loading weights:   6%|▌         | 25/434 [00:00<00:05, 70.50it/s]Loading weights:  11%|█▏        | 49/434 [00:00<00:03, 116.75it/s]Loading weights:  20%|█▉        | 85/434 [00:00<00:01, 184.78it/s]Loading weights:  25%|██▌       | 110/434 [00:00<00:02, 154.51it/s]Loading weights:  31%|███       | 133/434 [00:00<00:01, 165.06it/s]Loading weights:  35%|███▌      | 153/434 [00:01<00:01, 147.65it/s]Loading weights:  42%|████▏     | 183/434 [00:01<00:01, 176.05it/s]Loading weights:  49%|████▉     | 212/434 [00:01<00:01, 199.89it/s]Loading weights:  55%|█████▌    | 239/434 [00:01<00:00, 217.24it/s]Loading weights:  61%|██████    | 263/434 [00:01<00:00, 200.30it/s]Loading weights:  66%|██████▌   | 285/434 [00:01<00:00, 194.73it/s]Loading weights:  71%|███████   | 306/434 [00:01<00:00, 193.77it/s]Loading weights:  75%|███████▌  | 327/434 [00:02<00:00, 119.01it/s]Loading weights:  79%|███████▉  | 343/434 [00:02<00:00, 121.35it/s]Loading weights:  83%|████████▎ | 361/434 [00:02<00:00, 120.27it/s]Loading weights:  86%|████████▋ | 375/434 [00:02<00:00, 123.50it/s]Loading weights:  90%|████████▉ | 389/434 [00:02<00:00, 114.64it/s]Loading weights:  96%|█████████▌| 416/434 [00:02<00:00, 146.71it/s]Loading weights: 100%|██████████| 434/434 [00:02<00:00, 149.03it/s]
+09:30:15 INFO    kitapai.serve.engine: LoRA adaptörü bağlandı: models/kitapai-lora-v3
+09:30:15 INFO    kitapai.serve.engine: model yüklendi: unsloth/Qwen2.5-3B-Instruct-bnb-4bit (cuda, 5.0s)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=700) and `max_length`(=32768) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+══════════════════════════════════════════════════════════════════════════════
+İSTEK: düşündürücü bir roman arıyorum bir şeyler var mı?
+  ── v2 şablon
+   ✓ Never Go Back — Anne Weale · 1995
+       Düşündürücü olmasını istemiştin; Never Go Back bu isteğe uyan nadir kitaplardan. Tonu düşündürücü, sürükleyiciliği düşürmeden.
+   ✗ The gravity of birds — Tracy Guzeman · 2013
+       Aradığın zihin açıcı ton burada var: The gravity of birds psikoloji üzerine kurulu. 294 sayfayla ne fazla uzun ne de aceleye gelmiş. Yakın tarihli (2013) olduğu için bugünün okuruna daha kolay geliyor. Bu listeden ilk bunu denemeni öneririm.
+   ✓ The Animal-Lover's Book of Beastly Murder — Patr
+       Zihin açıcı bir şey istediğin için, The Animal-Lover's Book of Beastly Murder cinayet ve dedektiflik üzerine kurulu. Zihin açıcı yanı baştan sona hissediliyor. 1975 basımı, hâlâ referans gösteriliyor. Beklentini karşılamazsa şaşırırım.
+  ── v3 Gemini
+   ✓ How to live safely in a science fictional univer
+       Zaman yolculuğu ve evrensel temalar üzerine odaklanan bu bilim kurgu romanı, melankolik ve düşündürücü atmosferiyle aradığın derinliği sunuyor.
+   ✗ The gravity of birds — Tracy Guzeman · 2013
+       Karmaşık seçimler ve psikolojik derinliğiyle öne çıkan bu roman, düşündürücü ve melankolik tonuyla seni içine çekecek.
+   ✗ Married at first sight — Gu Lingfei · 2015
+       Romantik ilişkilerin ardındaki karmaşayı ve insan ilişkilerini düşündürücü bir dille ele alan, sıcak bir çağdaş roman.
+══════════════════════════════════════════════════════════════════════════════
+İSTEK: Şöyle bir şey arıyorum: hüzünlü bir roman
+  ── v2 şablon
+   ✓ One Wicked Sin — Nicola Cornick · 2010
+       Bunu kaçırma: One Wicked Sin aşk ilişkileri anlatıyor. 373 sayfayla ne fazla uzun ne de aceleye gelmiş.
+   ✓ One-Night Wife — Sandra Marton · 2005
+       One-Night Wife bu isteğe uyan nadir kitaplardan. Tonu buruk, sürükleyiciliği düşürmeden. Bu listeden ilk bunu denemeni öneririm.
+   ✗ Infernal devices — K. W. Jeter · 1987
+       Aradığın içe işleyen ton burada var: Infernal devices Londra üzerine kurulu. 1987 basımı, hâlâ referans gösteriliyor. Beklentini karşılamazsa şaşırırım.
+  ── v3 Gemini
+   ✓ One-Night Wife — Sandra Marton · 2005
+       Aradığın melankolik ve hüzünlü havayı romantik bir kurguyla harmanlayan bu roman, duygusal derinliğiyle seni içine çekecek.
+   ✗ Infernal devices — K. W. Jeter · 1987
+       Steampunk evreninde geçen bu roman, gizemli ve düşündürücü yapısıyla aradığın melankolik atmosferi fantastik bir kurguyla sunuyor.
+   ✓ One Wicked Sin — Nicola Cornick · 2010
+       Tarihi dönem atmosferinde geçen bu romantik roman, melankolik ve düşündürücü tonuyla tam da istediğin hüzünlü hissi yaşatacak.
+══════════════════════════════════════════════════════════════════════════════
+İSTEK: Selam, tarih hakkında bir şeyler okumak istiyorum ne önerirsin?
+  ── v2 şablon
+   ✓ Pioneers — Steve MacDonogh · 2010
+       Tam olarak bir hayat hikâyesi anlatıyor: Pioneers bir hayat hikâyesi ve Amerika üzerine kurulu. Open Library'de 16 okur puanlamış, ortalama 3.4/5.
+   ✗ Galactic pot-healer — Philip K. Dick · 1969
+       Galactic pot-healer bu isteğe uyan nadir kitaplardan. 179 sayfa — bir hafta sonunda biter. Bu listeden ilk bunu denemeni öneririm.
+   ✗ Beyond the Dark — Angela Knight ve Emma Holly · 
+       Bunu kaçırma: Beyond the Dark, aşk etrafında dönen bir bilim kurgu romanı. Yakın tarihli (2007) olduğu için bugünün okuruna daha kolay geliyor. Beklentini karşılamazsa şaşırırım.
+  ── v3 Gemini
+   ✓ Pioneers — Steve MacDonogh · 2010
+       Tarihsel arka planı ve aile geçmişini ele alan bu biyografik çalışma, Obama'nın İrlanda kökenine odaklanarak aradığın tarih okumasını sunuyor.
+   ✗ Beyond the Dark — Angela Knight ve Emma Holly · 
+       Tarihle doğrudan ilgisi olmayan, karanlık ve gerilimli bir paranormal kurgu sunan bir roman; aradığın tarih okuması beklentini karşılamayabilir.
+   ✗ The talking stick — Randy Hammer · 2007
+       Tarih arayışına doğrudan uymayan, çocuklara yönelik bir hristiyan seremoni kitabı; yine de farklı bir alana göz atmak istersen bakabilirsin.
+══════════════════════════════════════════════════════════════════════════════
+İSTEK: Şöyle bir şey arıyorum: düşündürücü bir şey öneri alabilir miyim?
+  ── v2 şablon
+   ✗ Georgia Peaches and other forbidden fruit — Jaye
+       Georgia Peaches and other forbidden fruit bu isteğe uyan nadir kitaplardan. 438 sayfa; içine yerleşip kalmak isteyenler için. Bu listeden ilk bunu denemeni öneririm.
+   ✗ The Island Keeper — Harry Mazer · 1981
+       Hayatta kalma ilgini çekiyorsa, The Island Keeper hayatta kalma ve aile üzerine kurulu. 169 sayfa — bir hafta sonunda biter. Beklentini karşılamazsa şaşırırım.
+   ✗ Taken Over by the Billionaire — Miranda Lee · 20
+       Taken Over by the Billionaire, aşk ilişkileri etrafında dönen bir aşk romanı. 2014 tarihli, yani dili ve dünyası sana yakın. Beklentini karşılamazsa şaşırırım.
+  ── v3 Gemini
+   ✗ The First Book of Lost Swords — Fred Saberhagen 
+       Düşündürücü ve melankolik tonuyla öne çıkan bu fantastik roman, epik atmosferiyle seni farklı bir dünyaya götürecek.
+   ✗ Taken Over by the Billionaire — Miranda Lee · 20
+       Romantik bir kurgu sunsa da melankolik ve düşündürücü havasıyla ilişkiler üzerine derinlemesine sorgulamalar yapmanı sağlayabilir.
+   ✗ The Island Keeper — Harry Mazer · 1981
+       Kayıp ve hayatta kalma temalarını işleyen bu macera, karanlık ve samimi yönleriyle zihnini meşgul edecek bir okuma vadediyor.

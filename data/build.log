@@ -1,0 +1,27 @@
+01:19:25 INFO    kitapai.data.sources: works        yerel  ol_dump_works_2026-08-31.txt.gz
+01:19:45 WARNING kitapai.data.http: editions URL çözümlemesi başarısız (ConnectError) — 1.7 sn sonra 2/8. deneme
+01:19:54 INFO    kitapai.data.sources: editions     uzak   https://ia800909.us.archive.org/1/items/ol_dump_2026-08-31/ol_dump_editions_2026-08-31.txt.gz (diske yazılmadan akıtılacak)
+01:19:54 INFO    kitapai.data.sources: authors      yerel  ol_dump_authors_2026-08-31.txt.gz
+01:19:54 INFO    kitapai.data.sources: ratings      yerel  ol_dump_ratings_2026-08-31.txt.gz
+01:19:54 INFO    kitapai.data.sources: reading-log  yerel  ol_dump_reading-log_2026-08-31.txt.gz
+01:19:54 INFO    kitapai.data.catalog: taşma alanı: data/tmp (en fazla 7.9 GiB, 10.9 GiB boş)
+01:19:54 INFO    kitapai.data.catalog: uzak akış modu: dump'lar diske yazılmadan işlenecek (kopmalarda 20 denemeye kadar sürdürülür)
+01:20:14 INFO    kitapai.data.catalog: authors        15,409,830 satır  (20.3s)
+01:23:33 INFO    kitapai.data.catalog: works          21,494,401 satır  (198.2s)
+01:23:33 INFO    kitapai.data.catalog: ratings           701,043 satır  (0.6s)
+01:23:37 INFO    kitapai.data.catalog: readers         3,314,590 satır  (3.5s)
+01:23:47 INFO    kitapai.data.catalog: prelim          2,431,119 satır  (10.3s)
+08:05:18 INFO    kitapai.data.sources: works        yerel  ol_dump_works_2026-08-31.txt.gz
+08:05:19 WARNING kitapai.data.http: editions URL çözümlemesi başarısız (ConnectError) — 1.1 sn sonra 2/8. deneme
+08:05:25 INFO    kitapai.data.sources: editions     uzak   https://ia800909.us.archive.org/1/items/ol_dump_2026-08-31/ol_dump_editions_2026-08-31.txt.gz (diske yazılmadan akıtılacak)
+08:05:25 INFO    kitapai.data.sources: authors      yerel  ol_dump_authors_2026-08-31.txt.gz
+08:05:25 INFO    kitapai.data.sources: ratings      yerel  ol_dump_ratings_2026-08-31.txt.gz
+08:05:25 INFO    kitapai.data.sources: reading-log  yerel  ol_dump_reading-log_2026-08-31.txt.gz
+08:05:25 INFO    kitapai.data.catalog: taşma alanı: data/tmp (en fazla 8.6 GiB, 11.6 GiB boş)
+08:05:25 INFO    kitapai.data.catalog: uzak akış modu: dump'lar diske yazılmadan işlenecek (kopmalarda 20 denemeye kadar sürdürülür)
+08:05:25 INFO    kitapai.data.catalog: sürdürülüyor: 'prelim' tablosu mevcut, sonraki aşamadan devam
+08:05:25 INFO    kitapai.data.catalog: authors                 —      (tamamlanmış, atlandı)
+08:05:25 INFO    kitapai.data.catalog: works                   —      (tamamlanmış, atlandı)
+08:05:25 INFO    kitapai.data.catalog: ratings                 —      (tamamlanmış, atlandı)
+08:05:25 INFO    kitapai.data.catalog: readers                 —      (tamamlanmış, atlandı)
+08:05:25 INFO    kitapai.data.catalog: prelim                  —      (tamamlanmış, atlandı)

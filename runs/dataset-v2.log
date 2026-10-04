@@ -1,0 +1,62 @@
+23:53:15 INFO    kitapai.dataset.build: çalışma havuzu: 150,000 kitap (90,000 popüler + 60,000 kuyruk)
+23:53:37 INFO    kitapai.dataset.build: 2,000 / 40,000 örnek
+23:53:59 INFO    kitapai.dataset.build: 4,000 / 40,000 örnek
+23:54:27 INFO    kitapai.dataset.build: 6,000 / 40,000 örnek
+23:54:56 INFO    kitapai.dataset.build: 8,000 / 40,000 örnek
+23:55:24 INFO    kitapai.dataset.build: 10,000 / 40,000 örnek
+23:55:52 INFO    kitapai.dataset.build: 12,000 / 40,000 örnek
+23:56:19 INFO    kitapai.dataset.build: 14,000 / 40,000 örnek
+23:56:47 INFO    kitapai.dataset.build: 16,000 / 40,000 örnek
+23:57:14 INFO    kitapai.dataset.build: 18,000 / 40,000 örnek
+23:57:42 INFO    kitapai.dataset.build: 20,000 / 40,000 örnek
+23:58:09 INFO    kitapai.dataset.build: 22,000 / 40,000 örnek
+23:58:37 INFO    kitapai.dataset.build: 24,000 / 40,000 örnek
+23:59:04 INFO    kitapai.dataset.build: 26,000 / 40,000 örnek
+23:59:31 INFO    kitapai.dataset.build: 28,000 / 40,000 örnek
+23:59:58 INFO    kitapai.dataset.build: 30,000 / 40,000 örnek
+00:00:28 INFO    kitapai.dataset.build: 32,000 / 40,000 örnek
+00:01:03 INFO    kitapai.dataset.build: 34,000 / 40,000 örnek
+00:01:37 INFO    kitapai.dataset.build: 36,000 / 40,000 örnek
+00:02:11 INFO    kitapai.dataset.build: 38,000 / 40,000 örnek
+00:02:43 INFO    kitapai.dataset.build: 40,000 / 40,000 örnek
+00:02:47 INFO    kitapai.dataset.build: train  → /home/umutcagand/Masaüstü/kitapai/data/dataset/train.jsonl (38,400 örnek)
+00:02:47 INFO    kitapai.dataset.build: valid  → /home/umutcagand/Masaüstü/kitapai/data/dataset/valid.jsonl (1,600 örnek)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+00:03:02 INFO    kitapai.dataset.build: token uzunluğu: ortalama 2350, medyan 2369, p95 2584, max 2731
+00:03:02 INFO    kitapai.dataset.build: token bütçesi uygun (p95 2584 ≤ 3072)
+00:03:02 INFO    kitapai.dataset.build: veri kümesi hazır: 40,000 örnek, 73,582 benzersiz kitap, ~86,831,683 token
+{
+  "total": 40000,
+  "train": 38400,
+  "valid": 1600,
+  "by_style": {
+    "olumsuz": 1863,
+    "benzer": 3499,
+    "tur_ruh": 14869,
+    "durum": 7544,
+    "tema": 6634,
+    "kisit": 4705,
+    "belirsiz": 886
+  },
+  "by_task": {
+    "grounded_recommend": 40000
+  },
+  "picks_histogram": {
+    "1": 1,
+    "2": 5964,
+    "3": 21869,
+    "4": 8081,
+    "5": 4085
+  },
+  "unique_books": 73582,
+  "avg_candidates": 12.0,
+  "avg_chars": 6946.5,
+  "approx_tokens": 86831683,
+  "token_lengths": {
+    "ortalama": 2350,
+    "medyan": 2369,
+    "p95": 2584,
+    "max": 2731
+  },
+  "over_budget_ratio": 0.0
+}

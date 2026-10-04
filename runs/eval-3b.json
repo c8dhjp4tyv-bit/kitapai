@@ -1,0 +1,18 @@
+{
+  "n": 60,
+  "json_valid": 1.0,
+  "repaired": 0.0,
+  "id_valid": 1.0,
+  "limit_respected": 1.0,
+  "pick_precision": 0.6597,
+  "pick_recall": 0.6632,
+  "turkish_ratio": 1.0,
+  "copy_ratio": 0.0,
+  "distinct2": 0.4115,
+  "conf_correct": 0.8147,
+  "conf_wrong": 0.7255,
+  "conf_gap": 0.0891,
+  "avg_picks": 3.1833,
+  "avg_why_chars": 153.4974,
+  "failures": []
+}
