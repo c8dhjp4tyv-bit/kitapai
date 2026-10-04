@@ -1,0 +1,31 @@
+# YAZ görevi: istek + yalnızca seçilen kitaplar + uyum → Gemini gerekçesi.
+# Ölçüm: medyan 916, p95 1355, max 1461 token; denetlenen çıktı ~270 token.
+base_model: unsloth/Qwen2.5-3B-Instruct-bnb-4bit
+max_seq_length: 1536
+load_in_4bit: true
+
+lora_r: 32
+lora_alpha: 32
+lora_dropout: 0.0
+use_rslora: true
+gradient_checkpointing: unsloth
+
+epochs: 1.0
+batch_size: 4
+grad_accum: 4
+learning_rate: 2.0e-4
+warmup_ratio: 0.03
+weight_decay: 0.01
+lr_scheduler: cosine
+optim: adamw_bnb_8bit
+bf16: true
+
+dataset_dir: data/dataset
+train_file: write_train.jsonl
+valid_file: write_valid.jsonl
+output_dir: models/kitapai-write
+logging_steps: 10
+eval_steps: 100
+eval_samples: 100
+save_steps: 100
+max_samples: 6000

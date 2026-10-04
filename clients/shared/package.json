@@ -1,0 +1,11 @@
+{
+  "name": "@kitapai/shared",
+  "version": "2.0.0",
+  "private": true,
+  "description": "kitap.ai API sözleşmesi — web ve Android istemcileri paylaşır",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

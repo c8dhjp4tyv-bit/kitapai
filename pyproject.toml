@@ -1,0 +1,84 @@
+[project]
+name = "kitapai"
+version = "2.0.0"
+description = "Open Library kataloğu üzerine kurulu, ince ayarlı Türkçe kitap öneri sistemi"
+requires-python = ">=3.10,<3.14"
+license = { text = "MIT" }
+readme = "README.md"
+
+# Çekirdek bağımlılıklar: veri boru hattı + servis. Torch YOK.
+# Model eğitimi/çalıştırması ağır olduğu için ayrı extra'lara konuldu; tüm ağır
+# importlar lazy (bkz. serve/engine.py, train/train.py) — böylece GPU'suz bir
+# makinede CLI, veri hattı ve testler sorunsuz çalışır.
+dependencies = [
+  "duckdb>=1.1",
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.7",
+  "pydantic-settings>=2.3",
+  "httpx>=0.27",
+  "typer>=0.12",
+  "rich>=13.7",
+  "orjson>=3.10",
+  "pyyaml>=6.0",
+  "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+# Yerel model çalıştırma (4-bit) — CUDA gerektirir.
+serve-local = [
+  "torch>=2.4",
+  "transformers>=4.44",
+  "accelerate>=0.33",
+  "peft>=0.12",
+  "bitsandbytes>=0.43",
+  "sentencepiece>=0.2",
+]
+# Gömme (embedding) tabanlı arama.
+embed = [
+  "sentence-transformers>=3.0",
+]
+# QLoRA eğitimi.
+train = [
+  "unsloth>=2024.8",
+  "trl>=0.9",
+  "datasets>=2.20",
+  "transformers>=4.44",
+  "peft>=0.12",
+  "bitsandbytes>=0.43",
+  "torch>=2.4",
+]
+dev = [
+  "pytest>=8.2",
+  "pytest-asyncio>=0.23",
+  "ruff>=0.5",
+]
+
+[project.scripts]
+kitapai = "kitapai.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kitapai"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint.per-file-ignores]
+# Sabit veri tabloları ve örnek metinler tek satırda okunaklı duruyor.
+"tests/fixtures/make_mini_dump.py" = ["E501"]
+"tests/test_metrics.py" = ["E501"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["B008", "RUF001", "RUF002", "RUF003"]  # RUF00x: Türkçe metinlerde "belirsiz karakter" uyarıları

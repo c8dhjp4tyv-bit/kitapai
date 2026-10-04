@@ -1,0 +1,27 @@
+# 8 GB VRAM'de 7B: sınırda çalışır. Dizi uzunluğu kısaltıldı, toplu boyut 1.
+# Bellek hatası alırsan max_seq_length'i 1024'e, grad_accum'u 16'ya çek.
+base_model: unsloth/Qwen2.5-7B-Instruct-bnb-4bit
+max_seq_length: 3072
+load_in_4bit: true
+
+lora_r: 16
+lora_alpha: 16
+lora_dropout: 0.0
+use_rslora: true
+gradient_checkpointing: unsloth
+
+epochs: 1.5
+batch_size: 1
+grad_accum: 16
+learning_rate: 8.0e-5
+warmup_ratio: 0.03
+weight_decay: 0.01
+lr_scheduler: cosine
+optim: adamw_bnb_8bit
+bf16: true
+
+dataset_dir: data/dataset
+output_dir: models/kitapai-lora-7b
+logging_steps: 20
+eval_steps: 250
+save_steps: 500

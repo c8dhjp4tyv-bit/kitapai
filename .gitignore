@@ -1,0 +1,41 @@
+# Veri ve model çıktıları — asla depoya girmez
+/data/
+/models/
+/runs/*
+!/runs/*.sh
+*.duckdb
+*.duckdb.wal
+*.parquet
+*.gz
+*.safetensors
+*.gguf
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# iOS / Android derleme çıktıları
+clients/ios/build/
+clients/android/android/app/build/
+clients/android/android/.gradle/
+*.ipa
+*.apk
+*.aab
+
+# Ortam
+.env
+.env.local
+
+# Araç önbellekleri
+unsloth_compiled_cache/
+.claude/

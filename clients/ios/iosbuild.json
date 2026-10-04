@@ -1,0 +1,18 @@
+{
+  "name": "KitapAI",
+  "sources": [
+    "Sources/Models.swift",
+    "Sources/Theme.swift",
+    "Sources/Settings.swift",
+    "Sources/ApiClient.swift",
+    "Sources/RecommendStore.swift",
+    "Sources/BookCardView.swift",
+    "Sources/ContentView.swift",
+    "Sources/KitapAIApp.swift"
+  ],
+  "bundle_identifier": "com.kitapai.app",
+  "deployment_target": "26.5",
+  "type": "executable",
+  "language": "swift",
+  "frameworks": ["SwiftUI"]
+}

@@ -1,0 +1,31 @@
+# SEÇ görevi: istek + 12 aday → yalnızca kimlikler. Etiketler Gemini hakem notlarından
+# (0 notlu kitap seçilmez; bkz. `kitapai dataset relabel`). Ölçüm: medyan 1784 token.
+base_model: unsloth/Qwen2.5-3B-Instruct-bnb-4bit
+max_seq_length: 2304
+load_in_4bit: true
+
+lora_r: 32
+lora_alpha: 32
+lora_dropout: 0.0
+use_rslora: true
+gradient_checkpointing: unsloth
+
+epochs: 1.0
+batch_size: 2
+grad_accum: 8
+learning_rate: 2.0e-4
+warmup_ratio: 0.03
+weight_decay: 0.01
+lr_scheduler: cosine
+optim: adamw_bnb_8bit
+bf16: true
+
+dataset_dir: data/dataset
+train_file: select_train_judged.jsonl
+valid_file: select_valid_judged.jsonl
+output_dir: models/kitapai-select
+logging_steps: 10
+eval_steps: 100
+eval_samples: 100
+save_steps: 100
+max_samples: 6000

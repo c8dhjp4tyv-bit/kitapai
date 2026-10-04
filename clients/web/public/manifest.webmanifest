@@ -1,0 +1,12 @@
+{
+  "name": "kitap.ai",
+  "short_name": "kitap.ai",
+  "description": "Ruh haline ve zevkine göre kitap önerileri",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F0E8",
+  "theme_color": "#C96A2B",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

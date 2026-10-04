@@ -1,0 +1,33 @@
+# 8 GB VRAM (RTX 5060 dizüstü) için Qwen2.5-3B QLoRA — ÖLÇÜLMÜŞ değerlerle.
+# Ölçüm (2026-10-02): 48 sn/adım, 0.33 örnek/sn, tepe VRAM 4.75 GB.
+# 38.400 örnek × 2 tur = 64 saat sürerdi; bu yüzden 6.000 örnek × 1 tur
+# (375 adım ≈ 5 saat). Şablonla üretilmiş hedefler hızlı öğrenilir; daha
+# fazlası için `kitapai train --resume` ile devam edilebilir.
+base_model: unsloth/Qwen2.5-3B-Instruct-bnb-4bit
+max_seq_length: 3072
+load_in_4bit: true
+
+lora_r: 32
+lora_alpha: 32
+lora_dropout: 0.0
+use_rslora: true
+gradient_checkpointing: unsloth
+
+epochs: 1.0
+batch_size: 2
+grad_accum: 8          # etkin toplu boyut = 16
+learning_rate: 2.0e-4
+warmup_ratio: 0.03
+weight_decay: 0.01
+lr_scheduler: cosine
+optim: adamw_bnb_8bit
+bf16: true
+
+dataset_dir: data/dataset
+train_file: distilled.jsonl
+output_dir: models/kitapai-lora-v3
+logging_steps: 10
+eval_steps: 100
+eval_samples: 100
+save_steps: 100
+max_samples: 6000
