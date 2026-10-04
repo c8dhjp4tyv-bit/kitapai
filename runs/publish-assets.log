@@ -1,0 +1,27 @@
+https://github.com/c8dhjp4tyv-bit/kitapai/releases/tag/v2.0-artifacts
+[11:31:33] paketleniyor: kitapai-select
+[11:35:15] yüklendi: kitapai-select.tar.zst
+[11:35:15] paketleniyor: kitapai-write
+[11:43:16] yüklendi: kitapai-write.tar.zst
+[11:43:16] paketleniyor: kitapai-lora
+[11:49:17] yüklendi: kitapai-lora.tar.zst
+[11:49:17] paketleniyor: kitapai-lora-v2
+[11:53:07] yüklendi: kitapai-lora-v2.tar.zst
+[11:53:07] paketleniyor: kitapai-lora-v3
+[11:57:11] yüklendi: kitapai-lora-v3.tar.zst
+[11:57:12] paketleniyor: data-dataset
+[12:00:12] yüklendi: data-dataset.tar.zst
+[12:00:12] paketleniyor: data-dataset_eski
+[12:01:15] yüklendi: data-dataset_eski.tar.zst
+[12:01:15] paketleniyor: data-vectors
+[12:05:21] yüklendi: data-vectors.tar.zst
+[12:05:21] paketleniyor: open-library dump'ları
+[12:42:51] yüklendi: data-dumps.tar.zst
+[12:42:51] katalog bölünüyor (2 GB sınırı)
+[13:31:05] yüklendi: catalog.duckdb.part00
+[13:52:05] yüklendi: catalog.duckdb.part01
+[13:52:28] yüklendi: catalog.duckdb.part02
+[13:52:31] yüklendi: KitapAI.ipa
+[13:52:32] yüklendi: SHA256SUMS.txt
+[13:52:32] tüm dosyalar yüklendi; depo herkese açılıyor
+[13:52:34] DEPO PUBLIC

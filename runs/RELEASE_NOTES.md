@@ -11,7 +11,7 @@ Kod depoda; büyük dosyalar buraya yüklendi. Doğrulama için `SHA256SUMS.txt`
 | `data-dataset_eski.tar.zst` | İlk sürüm eğitim verisi |
 | `data-vectors.tar.zst` | Anlamsal arama indeksi (300 bin vektör) |
 | `data-dumps.tar.zst` | Open Library dump'ları (yazarlar, puanlar, okuma kayıtları) |
-| `catalog.duckdb.part00`, `part01` | Katalog (2,4 milyon kitap). Birleştir: `cat catalog.duckdb.part* > data/catalog.duckdb` |
+| `catalog.duckdb.part00` … `part02` | Katalog (2,4 milyon kitap). Birleştir: `cat catalog.duckdb.part* > data/catalog.duckdb` |
 | `KitapAI.ipa` | iOS uygulaması (ad-hoc imzalı, sideload) |
 
 Açma: `tar --zstd -xf <dosya> -C models/` (modeller) ya da `-C data/` (veri).
