@@ -35,7 +35,12 @@ export class ApiError extends Error {
     if (this.status === 0) {
       return 'Sunucuya ulaşılamadı. Tailscale bağlı mı, sunucu çalışıyor mu?';
     }
-    if (this.status === 401) return 'API anahtarı geçersiz.';
+    if (this.status === 401) {
+      if (this.body?.error === 'invite_expired') return 'Bu davet kodunun süresi dolmuş.';
+      if (this.body?.error === 'invite_required') return 'Devam etmek için davet kodu gerekli.';
+      if (this.body?.error === 'invite_invalid') return 'Davet kodu geçersiz.';
+      return 'API anahtarı geçersiz.';
+    }
     if (this.status === 503 && this.body?.error === 'katalog_yok') {
       return 'Sunucuda katalog kurulu değil.';
     }
@@ -113,6 +118,12 @@ export function createClient(options: ClientOptions) {
         `/api/similar/${workKey.replace('/works/', '')}?limit=${limit}`,
       ),
     taxonomy: () => request<TaxonomyResponse>('/api/taxonomy'),
+    /** Davet kodunu doğrular (sunucu tarafında; süre ve geçerlilik orada denetlenir). */
+    invite: (code: string) =>
+      request<{ ok: boolean; expires_at: number; label: string }>('/api/invite', {
+        method: 'POST',
+        body: JSON.stringify({ code }),
+      }),
     health: () => request<HealthResponse>('/health'),
   };
 }

@@ -1,4 +1,5 @@
 import { createClient } from '@kitapai/shared';
+import { clearCode, storedCode } from './invite';
 
 /**
  * API adresi sırayla şuradan okunur:
@@ -22,9 +23,29 @@ function resolveBaseUrl(): string {
 
 export const apiBaseUrl = resolveBaseUrl();
 
+/** Sunucu davet kodunu reddederse (süre doldu / geçersiz) kodu sil ve kapıya dön. */
+const guardedFetch: typeof fetch = async (input, init) => {
+  const response = await fetch(input, init);
+  if (response.status === 401 && !String(input).endsWith('/api/invite')) {
+    const body = (await response.clone().json().catch(() => null)) as { error?: string; detail?: string } | null;
+    if (body?.error?.startsWith('invite_')) {
+      clearCode();
+      try {
+        sessionStorage.setItem('kitapai.notice', body.detail ?? 'Davet kodu geçersiz.');
+      } catch {
+        // yok say
+      }
+      window.location.reload();
+    }
+  }
+  return response;
+};
+
 export const api = createClient({
+  fetchImpl: guardedFetch,
   baseUrl: apiBaseUrl,
-  apiKey: (import.meta.env.VITE_API_KEY as string | undefined) || undefined,
+  // Davet kodu sunucuda denetlenen anahtardır (X-API-Key). Kod girilince sayfa yeniden yüklenir.
+  apiKey: storedCode() || (import.meta.env.VITE_API_KEY as string | undefined) || undefined,
 });
 
 export function setApiBaseUrl(url: string): void {

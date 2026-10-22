@@ -6,6 +6,7 @@ import { useLibrary, useTaxonomy, useTheme } from './hooks';
 import { BookCard } from './components/BookCard';
 import { ChipGroup, ChipSelect } from './components/Chips';
 import { Header } from './components/Header';
+import { clearCode, remaining, storedExpiry } from './invite';
 
 const EXAMPLES = [
   'çölde geçen, ağır olmayan epik bir bilim kurgu',
@@ -271,6 +272,22 @@ export default function App() {
       <footer className="footer muted small">
         Veri: Open Library (ODbL) · Öneriler ince ayarlı bir dil modelinden gelir,
         kitap bilgileri katalogdan.
+        {storedExpiry() && (
+          <>
+            {' '}
+            · Davet kodun {remaining(storedExpiry()!)} daha geçerli ·{' '}
+            <button
+              type="button"
+              className="linklike"
+              onClick={() => {
+                clearCode();
+                window.location.reload();
+              }}
+            >
+              Çıkış
+            </button>
+          </>
+        )}
       </footer>
     </div>
   );

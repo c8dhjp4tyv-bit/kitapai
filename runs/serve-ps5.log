@@ -29,3 +29,6 @@ INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
 19:51:56 INFO    kitapai.serve.pipeline: öneri 8910fafe135a: 3 sonuç, 40 aday, 5282 ms (getir 1572 · seç 1184 · yaz 2525, 374 kr)
 INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
 INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [697630]
