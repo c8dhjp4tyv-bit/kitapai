@@ -5,19 +5,25 @@ enum ApiError: Error, LocalizedError {
     case network(String)
     case timeout
     case unauthorized
+    case invite(String)   // sunucu davet kodunu reddetti (süresi dolmuş ya da geçersiz)
     case server(status: Int, body: ErrorResponse?)
     case decoding(String)
 
     var errorDescription: String? {
         switch self {
         case .network:
-            return "Sunucuya ulaşılamadı. Tailscale bağlı mı, sunucu çalışıyor mu?"
+            return "Sunucuya ulaşılamadı. İnternet bağlantını kontrol et; sunucu kapalı olabilir."
         case .timeout:
             return "İstek zaman aşımına uğradı."
         case .unauthorized:
             return "API anahtarı geçersiz."
+        case let .invite(message):
+            return message
         case let .server(status, body):
             if body?.error == "katalog_yok" { return "Sunucuda katalog kurulu değil." }
+            if body?.error == "model_loading" {
+                return body?.detail ?? "Model yükleniyor, yaklaşık bir dakika sonra tekrar dene."
+            }
             if status == 503 { return "Sunucu şu an meşgul, birkaç saniye sonra tekrar dene." }
             return body?.detail ?? "Sunucu hatası (\(status))."
         case let .decoding(detail):
@@ -68,8 +74,13 @@ struct ApiClient: Sendable {
             throw ApiError.network("geçersiz yanıt")
         }
         guard (200..<300).contains(http.statusCode) else {
-            if http.statusCode == 401 { throw ApiError.unauthorized }
             let body = try? JSONDecoder().decode(ErrorResponse.self, from: data)
+            if http.statusCode == 401 {
+                if let error = body?.error, error.hasPrefix("invite_") {
+                    throw ApiError.invite(body?.detail ?? "Davet kodu geçersiz.")
+                }
+                throw ApiError.unauthorized
+            }
             throw ApiError.server(status: http.statusCode, body: body)
         }
         do {
@@ -81,6 +92,12 @@ struct ApiClient: Sendable {
 
     func taxonomy() async throws -> TaxonomyResponse {
         try await send(request("api/taxonomy"), as: TaxonomyResponse.self)
+    }
+
+    /// Davet kodunu sunucuda doğrular.
+    func invite(code: String) async throws -> InviteResponse {
+        let payload = try JSONEncoder().encode(["code": code])
+        return try await send(request("api/invite", method: "POST", body: payload), as: InviteResponse.self)
     }
 
     func health() async throws -> HealthResponse {

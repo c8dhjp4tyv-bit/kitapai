@@ -7,6 +7,7 @@
     "Sources/ApiClient.swift",
     "Sources/RecommendStore.swift",
     "Sources/BookCardView.swift",
+    "Sources/InviteGateView.swift",
     "Sources/ContentView.swift",
     "Sources/KitapAIApp.swift"
   ],

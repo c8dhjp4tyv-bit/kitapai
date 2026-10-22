@@ -124,3 +124,9 @@ struct ErrorResponse: Codable, Sendable {
     let detail: String?
     let request_id: String?
 }
+
+struct InviteResponse: Codable, Sendable {
+    let ok: Bool
+    let expires_at: Double
+    let label: String?
+}

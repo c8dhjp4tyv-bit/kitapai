@@ -19,6 +19,14 @@ struct ContentView: View {
     private var dark: Bool { colorScheme == .dark }
 
     var body: some View {
+        if settings.apiKey.isEmpty {
+            InviteGateView()
+        } else {
+            content
+        }
+    }
+
+    private var content: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 header
@@ -27,6 +35,7 @@ struct ContentView: View {
                 formCard
                 if store.isLoading { ProgressView().frame(maxWidth: .infinity).padding() }
                 if let result = store.result { results(result) }
+                inviteFooter
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 48)
@@ -34,6 +43,21 @@ struct ContentView: View {
         .background(Palette.bg(dark).ignoresSafeArea())
         .environment(\.isDarkTheme, dark)
         .task { await store.connect() }
+    }
+
+    private var inviteFooter: some View {
+        HStack(spacing: 6) {
+            if let remaining = settings.inviteRemaining {
+                Text("Davet kodun \(remaining) daha geçerli ·")
+                    .font(.caption2)
+                    .foregroundStyle(Palette.text2(dark))
+            }
+            Button("Çıkış") { settings.clearInvite() }
+                .font(.caption2)
+                .foregroundStyle(Palette.accent(dark))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 8)
     }
 
     // ── başlık ─────────────────────────────────────────────────────────────
@@ -61,7 +85,7 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("API ADRESİ").font(.caption2.weight(.semibold))
                 .foregroundStyle(Palette.text2(dark))
-            TextField("https://makine.tailnet.ts.net", text: $settings.apiURL)
+            TextField("https://kitapai-sunum.serveousercontent.com", text: $settings.apiURL)
                 .textFieldStyle(.plain)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
@@ -70,7 +94,7 @@ struct ContentView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .foregroundStyle(Palette.text(dark))
 
-            Text("iOS düz HTTP'yi engeller. `tailscale serve` ile HTTPS adresi kullan.")
+            Text("iOS düz HTTP'yi engeller; HTTPS adresi kullan.")
                 .font(.caption2)
                 .foregroundStyle(Palette.text2(dark))
 

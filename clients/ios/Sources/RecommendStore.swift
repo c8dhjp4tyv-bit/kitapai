@@ -28,6 +28,13 @@ final class RecommendStore: ObservableObject {
         entries?.first { $0.slug == slug }?.label ?? slug
     }
 
+    /// Sunucu davet kodunu reddettiyse (süre doldu) kodu sil; ekran kapıya döner. true = işlendi.
+    private func handleInviteError(_ error: Error) -> Bool {
+        guard case let .invite(message)? = error as? ApiError else { return false }
+        settings.clearInvite(notice: message)
+        return true
+    }
+
     func connect() async {
         guard let client else {
             errorMessage = "API adresi geçersiz."
@@ -40,6 +47,7 @@ final class RecommendStore: ObservableObject {
             health = try? await healthTask
             errorMessage = nil
         } catch {
+            if handleInviteError(error) { return }
             errorMessage = (error as? ApiError)?.errorDescription ?? error.localizedDescription
         }
     }
@@ -66,6 +74,7 @@ final class RecommendStore: ObservableObject {
             result = try await client.recommend(request)
         } catch {
             result = nil
+            if handleInviteError(error) { return }
             errorMessage = (error as? ApiError)?.errorDescription ?? error.localizedDescription
         }
     }
