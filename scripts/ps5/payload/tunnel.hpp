@@ -15,6 +15,7 @@
 #include <unistd.h>
 
 #include <atomic>
+#include "probe.hpp"
 #include <chrono>
 #include <cstring>
 #include <functional>
@@ -121,7 +122,11 @@ inline bool run_once(const Config &cfg, const Logger &log, const UrlSink &sink, 
     std::list<detail::Pair> pairs;
     bool ok = false;
 
+    std::atomic<bool> watchdog_failed{false}, watchdog_stop{false};
+    std::thread watchdog;
     auto cleanup = [&] {
+        watchdog_stop = true;
+        if (watchdog.joinable()) watchdog.join();
         for (auto &p : pairs) detail::close_pair(p);
         pairs.clear();
         if (listener) libssh2_channel_forward_cancel(listener);
@@ -188,10 +193,38 @@ inline bool run_once(const Config &cfg, const Logger &log, const UrlSink &sink, 
             banner.append(buf, (size_t)n);
             if (banner.size() > 32768) banner.erase(0, banner.size() - 16384);
             std::string url = detail::url_from_banner(banner);
-            if (!url.empty() && url != last_url) { last_url = url; log("tünel: genel adres " + url); sink(url); }
-        } else if (n == 0 || (n < 0 && n != LIBSSH2_ERROR_EAGAIN)) {
-            if (libssh2_channel_eof(shell)) { log("tünel: sunucu oturumu kapattı"); break; }
-        }
+            if (!url.empty() && url != last_url) {
+                last_url = url; log("tünel: genel adres " + url); sink(url);
+                if (!watchdog.joinable()) {
+                    watchdog = std::thread([url, &watchdog_failed, &watchdog_stop, &log] {
+                        auto sleep_s = [&](int sec) {
+                            for (int i = 0; i < sec * 10 && !watchdog_stop.load(); i++) std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                        };
+                        sleep_s(25);   // yeni alt alan adının yayılması için bekle
+                        int fails = 0;
+                        auto first = std::chrono::steady_clock::now();
+                        while (!watchdog_stop.load()) {
+                            std::string why;
+                            if (probe_public(url, why)) fails = 0;
+                            else {
+                                fails++;
+                                log("tünel: bekçi sınaması başarısız (" + std::to_string(fails) + "): " + why);
+                                bool grace = std::chrono::steady_clock::now() - first < std::chrono::minutes(3);
+                                if (fails >= (grace ? 4 : 2)) { watchdog_failed = true; return; }
+                            }
+                            sleep_s(fails ? 10 : 45);
+                        }
+                    });
+                }
+            }
+        } else if (n < 0 && n != LIBSSH2_ERROR_EAGAIN) {
+            // EAGAIN dışındaki her hata oturumun bozulduğu anlamına gelir (soket koptu, protokol hatası...).
+            char *emsg = nullptr;
+            libssh2_session_last_error(session, &emsg, nullptr, 0);
+            log("tünel: oturum bozuldu (okuma " + std::to_string((long long)n) + " " + (emsg ? emsg : "?") + ")");
+            break;
+        } else if (n == 0 && libssh2_channel_eof(shell)) { log("tünel: sunucu oturumu kapattı"); break; }
+        if (watchdog_failed.load()) { log("tünel: bekçi genel adresin düştüğünü gördü, yeniden bağlanılıyor"); break; }
         // 2) yeni yönlendirilmiş bağlantılar
         for (int k = 0; k < 8; k++) {
             LIBSSH2_CHANNEL *c = libssh2_channel_forward_accept(listener);
