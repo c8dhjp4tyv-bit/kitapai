@@ -118,3 +118,13 @@ tarayıcıda kaydetmeniz gerekir (`https://console.serveo.net/ssh/keys?add=SHA25
   "Dostoievski") zayıf. Arayüzdeki tür/ruh/dönem filtreleri sonuçları belirgin iyileştirir.
 - **Payload'u konsoldan durdurmak**: bu kurulumda bir yol yok; etaHEN/PS5LM yeniden başlatılınca ölür.
 - **Saat**: davet bitişleri PS5'in saatine göre denetlenir (bu kurulumda PC'den ~2 dk ileriydi).
+
+## 7. Otomatik başlatma
+
+PS5'te `ps5_autoloader` (jailbreak sonrası payload'ları sırayla başlatan yükleyici) varsa payload'u listenin
+sonuna ekleyin: ELF'i `/data/ps5_autoloader/` içine koyup `autoload.txt` sonuna `kitapai-server.elf` satırı
+ekleyin (satırlar ELF adı, `!<ms>` bekleme). Sıra etaHEN → ShadowMount → ... → kitapai olmalı ki `/data`
+bağlanmış olsun. Notlar: ELF'i güncellerseniz **iki kopyayı** da (`/data/etaHEN/payloads/` ve
+`/data/ps5_autoloader/`) güncelleyin; otomatik başlayan payload'u etaHEN menüsünden **bir daha başlatmayın**
+(ikinci kopya 8801'e bağlanır ve aynı alt alan adı için ikinci bir tünel açmaya çalışır). PS5LM
+uygulamasını yine elle açmanız gerekir (model onunla yüklenir).
