@@ -1,0 +1,10 @@
+# /data/PS5LM/kitapai/tunnel.conf: SSH ters tüneli ayarı (isteğe bağlı).
+# Dosya yoksa varsayılan: localhost.run, anonim, adres her başlatmada değişir.
+host=serveo.net
+user=kitapai
+# serveo'ya kaydedilmiş RSA özel anahtarı (depoya girmez; PS5'te bu yola konur)
+key=/data/PS5LM/kitapai/serveo_rsa
+# istenen sabit alt alan adı
+bind=kitapai-sunum
+# DNS çözülemezse denenecek adresler
+ips=37.27.37.254

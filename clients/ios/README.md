@@ -19,8 +19,8 @@ iPhoneOS SDK. Cihaza kurmak için ayrıca `pymobiledevice3`.
 
 ```bash
 ./build.sh                                          # build → bundle → sign → ipa
-./build.sh --api https://makine.tailnet.ts.net      # varsayılan sunucuyu göm
-./build.sh --allow-http                             # düz HTTP (Tailscale IP) izni
+./build.sh --api https://kitapai-sunum.serveousercontent.com   # varsayılan sunucuyu göm (HTTPS)
+./build.sh --allow-http                             # düz HTTP izni (yalnızca kişisel kurulum)
 ./build.sh --stage bundle                           # ara adımda dur
 ```
 
@@ -35,17 +35,23 @@ yerel ağ izni ve varsayılan API adresi bu yüzden `scripts/patch_plist.py` ile
 `CodeDirectory` karmalarını paketin son hâli üzerinden hesaplar, dolayısıyla
 yama imzadan sonra yapılırsa imza geçersiz olur.
 
+## Davet kodu
+
+Uygulama açılışta 24 haneli davet kodunu sorar (`Sources/InviteGateView.swift`). Kod sunucuda doğrulanır
+(`POST /api/invite`) ve `X-API-Key` olarak saklanır. Sunucu kodu reddederse (süresi dolmuş ya da geçersiz)
+kod silinir ve kapı yeniden gösterilir; altbilgide kalan süre ve "Çıkış" vardır. Derlemeyle gömülen adres
+değişirse, eski kayıtlı adres yeni varsayılana yerini bırakır.
+
 ## Ağ: HTTP mi HTTPS mi?
 
 iOS'ta App Transport Security düz HTTP'yi engeller. İki seçenek var:
 
-1. **Önerilen — HTTPS.** Sunucu tarafında `./scripts/tailscale-serve.sh`
-   çalıştır; `https://<makine>.<tailnet>.ts.net` adresi gerçek sertifikayla
-   gelir, uygulamada hiçbir istisna gerekmez.
-2. **Düz HTTP.** `./build.sh --allow-http` ile `NSAllowsLocalNetworking`
-   istisnası eklenir ve `http://100.x.y.z:8000` gibi tailnet adresleri
-   çalışır. Genel internete açık bir istisna (`NSAllowsArbitraryLoads`)
-   bilinçli olarak eklenmez.
+1. **Önerilen: HTTPS.** Serveo tüneli (`https://kitapai-sunum.serveousercontent.com`) ya da sunucu tarafında
+   `./scripts/tailscale-serve.sh` (`https://<makine>.<tailnet>.ts.net`) gerçek sertifikayla gelir; uygulamada
+   hiçbir istisna gerekmez. IPA bu şekilde derlenir.
+2. **Düz HTTP.** `./build.sh --allow-http` Info.plist'e `NSAllowsArbitraryLoads` ekler. `NSAllowsLocalNetworking`
+   yetmez: o yalnızca `.local` ve özel ağ adreslerini kapsar, Tailscale adresleri (100.64.0.0/10) kapsam
+   dışında kalır. Bu bayrak yalnızca kişisel yan yükleme için kullanılmalı; mağaza sürümü için HTTPS gerekir.
 
 Sunucu adresi uygulama içinden de değiştirilebilir: üstteki "sunucu" düğmesi.
 
@@ -54,7 +60,8 @@ Sunucu adresi uygulama içinden de değiştirilebilir: üstteki "sunucu" düğme
 | Dosya | İçerik |
 |---|---|
 | `Sources/Models.swift` | API sözleşmesi (`schemas.py` ile birebir; `test_contract.py` doğrular) |
-| `Sources/ApiClient.swift` | URLSession + async/await, Türkçe hata eşlemesi |
+| `Sources/ApiClient.swift` | URLSession + async/await, Türkçe hata eşlemesi, davet kodu doğrulama |
+| `Sources/InviteGateView.swift` | Davet kodu ekranı (24 hane, sunucuda doğrulanır) |
 | `Sources/RecommendStore.swift` | Ekran durumu (`@MainActor` ObservableObject) |
 | `Sources/ContentView.swift` | Ana ekran: form, filtreler, sonuçlar |
 | `Sources/BookCardView.swift` | Öneri kartı |
