@@ -11,6 +11,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+#include <algorithm>
 #include <atomic>
 #include <ctime>
 #include <fstream>
@@ -19,6 +20,7 @@
 #include <thread>
 
 #include "core.hpp"
+#include "tunnel.hpp"
 
 namespace {
 
@@ -38,6 +40,23 @@ std::atomic<int> waiting{0};
 std::atomic<int> connections{0};
 const time_t started_at = time(nullptr);
 std::mutex log_mu;
+std::mutex url_mu;
+std::string public_url;
+std::mutex fail_mu;
+std::vector<time_t> invite_failures;   // son bir dakikadaki başarısız davet denemeleri (genel sınır)
+
+// Başarısız deneme çoksa (kaba kuvvet) davet doğrulamasını geçici olarak durdurur.
+bool invite_rate_limited() {
+    std::lock_guard<std::mutex> g(fail_mu);
+    time_t now = time(nullptr);
+    invite_failures.erase(std::remove_if(invite_failures.begin(), invite_failures.end(),
+                                         [&](time_t t) { return now - t > 60; }), invite_failures.end());
+    return invite_failures.size() >= 30;
+}
+void note_invite_failure() {
+    std::lock_guard<std::mutex> g(fail_mu);
+    invite_failures.push_back(time(nullptr));
+}
 
 std::string env_or(const char *k, const std::string &d) {
     const char *v = getenv(k);
@@ -310,6 +329,20 @@ bool llama_call(const std::string &prompt, int adapter, int n_predict, std::stri
     return true;
 }
 
+// Model sunucusu hazır mı? Yüklenirken 503 döner; o sırada öneri vermek yerine açık bir hata ver.
+bool llama_ready() {
+    int fd = connect_to(cfg.llama_host, cfg.llama_port, 3);
+    if (fd < 0) return false;
+    std::string req = "GET /health HTTP/1.1\r\nHost: " + cfg.llama_host + "\r\nConnection: close\r\n\r\n";
+    if (!send_all(fd, req.data(), req.size())) { close(fd); return false; }
+    std::string resp;
+    char tmp[1024];
+    ssize_t n;
+    while ((n = recv(fd, tmp, sizeof tmp, 0)) > 0 && resp.size() < 4096) resp.append(tmp, (size_t)n);
+    close(fd);
+    return resp.compare(0, 12, "HTTP/1.1 200") == 0;
+}
+
 // ── uç noktalar ─────────────────────────────────────────────────────────────
 
 bool parse_recommend(const kj::Json &j, kc::Request &r, std::string &err) {
@@ -370,19 +403,24 @@ HttpResponse handle_api(const HttpRequest &req) {
         j.set("engine", kj::Json::str("llama"));
         j.set("model", kj::Json::str(cfg.model_id));
         j.set("catalog_books", kj::Json::integer((long long)catalog.books.size()));
-        j.set("catalog_path", kj::Json::str(cfg.dir + "/books.tsv"));
+        j.set("catalog_path", kj::Json::str("-"));
         j.set("vectors_loaded", kj::Json::boolean(false));
         j.set("device", kj::Json::str("ps5"));
         j.set("uptime_s", kj::Json::number((double)(time(nullptr) - started_at)));
         j.set("now", kj::Json::integer((long long)time(nullptr)));
+        {
+            std::lock_guard<std::mutex> g(url_mu);
+            j.set("public_url", public_url.empty() ? kj::Json() : kj::Json::str(public_url));
+        }
         return json_response(200, j);
     }
     if (p == "/api/taxonomy") return json_response(200, meta.taxonomy);
     if (p == "/api/invite") {
         if (req.method != "POST") return error_response(405, "method_not_allowed");
+        if (invite_rate_limited())
+            return error_response(429, "too_many_attempts", "Çok fazla hatalı deneme. Bir dakika sonra tekrar dene.");
         auto j = kj::parse(req.body);
         std::string code = j && j->is_obj() ? j->str_or("code") : "";
-        kc::Strings none;
         Invite inv;
         Auth a = check_code(code, &inv);
         if (a == Auth::Ok) {
@@ -392,6 +430,7 @@ HttpResponse handle_api(const HttpRequest &req) {
             r.set("label", kj::Json::str(inv.label));
             return json_response(200, r);
         }
+        note_invite_failure();
         logf("davet reddedildi: " + std::string(a == Auth::Expired ? "süresi dolmuş" : "geçersiz"));
         return error_response(401, a == Auth::Expired ? "invite_expired" : "invite_invalid",
                               a == Auth::Expired ? "Bu davet kodunun süresi dolmuş." : "Davet kodu geçersiz.");
@@ -415,6 +454,8 @@ HttpResponse handle_api(const HttpRequest &req) {
         std::string err;
         if (!parse_recommend(*j, r, err)) return error_response(422, "validation_error", err);
         if (waiting.load() >= 6) return error_response(503, "overloaded", "Sunucu meşgul, birkaç saniye sonra tekrar dene.");
+        if (!llama_ready())
+            return error_response(503, "model_loading", "Model yükleniyor, yaklaşık bir dakika sonra tekrar dene.");
         kc::PipelineConfig pc;
         pc.model_id = cfg.model_id;
         kj::Json out = kc::recommend(catalog, meta, r, llama_call, pc);
@@ -549,15 +590,48 @@ int main(int argc, char **argv) {
     logf("katalog hazır: " + std::to_string(catalog.books.size()) + " kitap, " +
          std::to_string((int)std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count()) + " sn");
 
-    int srv = socket(AF_INET, SOCK_STREAM, 0);
-    int one = 1;
-    setsockopt(srv, SOL_SOCKET, SO_REUSEADDR, &one, sizeof one);
-    sockaddr_in a{};
-    a.sin_family = AF_INET;
-    a.sin_port = htons((uint16_t)cfg.port);
-    a.sin_addr.s_addr = htonl(INADDR_ANY);
-    if (bind(srv, (sockaddr *)&a, sizeof a) < 0 || listen(srv, 32) < 0) { logf("bind/listen başarısız"); return 1; }
+    // Eski bir kopya aynı portu tutuyor olabilir (payload'u konsoldan durduramıyoruz): ilk boş porta bağlan.
+    int srv = -1, first_port = cfg.port;
+    for (int attempt = 0; attempt < 10; attempt++) {
+        srv = socket(AF_INET, SOCK_STREAM, 0);
+        int one = 1;
+        setsockopt(srv, SOL_SOCKET, SO_REUSEADDR, &one, sizeof one);
+        sockaddr_in a{};
+        a.sin_family = AF_INET;
+        a.sin_port = htons((uint16_t)(first_port + attempt));
+        a.sin_addr.s_addr = htonl(INADDR_ANY);
+        if (bind(srv, (sockaddr *)&a, sizeof a) == 0 && listen(srv, 32) == 0) { cfg.port = first_port + attempt; break; }
+        close(srv);
+        srv = -1;
+    }
+    if (srv < 0) { logf("bind/listen başarısız (" + std::to_string(first_port) + "-" + std::to_string(first_port + 9) + ")"); return 1; }
     logf("dinleniyor: " + std::to_string(cfg.port) + "  (model: " + cfg.llama_host + ":" + std::to_string(cfg.llama_port) + ")");
+    {
+        std::ofstream(cfg.dir + "/port.txt") << cfg.port << "\n";
+    }
+    static std::atomic<bool> tunnel_stop{false};
+    struct stat tst;
+    if (env_or("KITAPAI_TUNNEL", "1") != "0" && stat((cfg.dir + "/tunnel.off").c_str(), &tst) != 0) {
+        tun::Config tc;
+        tc.local_port = cfg.port;
+        std::ifstream tf(cfg.dir + "/tunnel.conf");   // isteğe bağlı: host=, port=, user=
+        std::string tl;
+        while (std::getline(tf, tl)) {
+            size_t eq = tl.find('=');
+            if (eq == std::string::npos) continue;
+            std::string k = tl.substr(0, eq), v = tl.substr(eq + 1);
+            while (!v.empty() && isspace((unsigned char)v.back())) v.pop_back();
+            if (k == "host") tc.host = v;
+            else if (k == "port") tc.port = atoi(v.c_str());
+            else if (k == "user") tc.user = v;
+        }
+        std::thread([tc] {
+            tun::run_forever(tc, [](const std::string &m) { logf(m); }, [](const std::string &u) {
+                { std::lock_guard<std::mutex> g(url_mu); public_url = u; }
+                std::ofstream(cfg.dir + "/public_url.txt") << u << "\n";
+            }, tunnel_stop);
+        }).detach();
+    }
     for (;;) {
         int fd = accept(srv, nullptr, nullptr);
         if (fd < 0) continue;

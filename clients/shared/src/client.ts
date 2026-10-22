@@ -44,6 +44,7 @@ export class ApiError extends Error {
     if (this.status === 503 && this.body?.error === 'katalog_yok') {
       return 'Sunucuda katalog kurulu değil.';
     }
+    if (this.status === 503 && this.body?.error === 'model_loading') return this.body.detail ?? 'Model yükleniyor, biraz sonra tekrar dene.';
     if (this.status === 503) return 'Sunucu şu an meşgul, birkaç saniye sonra tekrar dene.';
     if (this.status === 504) return 'İstek zaman aşımına uğradı.';
     return this.body?.detail || this.message;

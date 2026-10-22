@@ -23,3 +23,19 @@ model yerine LoRA'lar istek başına açılıp kapatılır.
 
 Ölçülen (200 örnek): PS5'te hakem puanı PC ile aynı (normalize 0,888); seçici ~2 sn, yazıcı ~3 sn,
 uçtan uca öneri 5–8 sn.
+
+## Internete açma (CGNAT arkasında, PS5'in kendisinden)
+
+Payload (`scripts/ps5/payload/`) kendi SSH ters tünelini kurar (`tunnel.hpp`): `nokey@localhost.run`
+(kimlik doğrulama yok) ile bağlanır, `80` portunu PS5'teki siteye yönlendirir ve açılış metninden
+`https://….lhr.life` adresini okur. Bilgisayar gerekmez. Adres her başlatmada değişir; payload onu
+`/data/PS5LM/kitapai/public_url.txt` dosyasına ve `/health` yanıtına (`public_url`) yazar.
+
+- Derleme: `build_deps.sh` mbedtls ve libssh2'yi PS5 için statik derler (kaynaklar SHA-256 ile doğrulanır),
+  sonra `prospero-clang++ … server.cpp -lssh2 -lmbedtls -lmbedx509 -lmbedcrypto`.
+- `tunnel.off` dosyası ya da `KITAPAI_TUNNEL=0` tüneli kapatır; `tunnel.conf` (`host=`, `port=`, `user=`) başka
+  bir SSH ters tünel servisi seçer.
+- Notlar: sunucu `shell` isteğine yanıt vermez (3 sn zaman aşımı normaldir), PTY istenmemeli, stderr akışı
+  birleştirilmeli. DNS çözülemezse localhost.run'ın bilinen IP'leri denenir.
+- Güvenlik: tünel HTTPS'i röle uçta sonlandırır (röle trafiği görür). API davet koduyla korunur; `/api/invite`
+  başarısız denemelerde (dakikada 30) geçici olarak durur.
