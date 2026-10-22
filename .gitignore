@@ -44,3 +44,8 @@ unsloth_compiled_cache/
 # Davet kodları asla depoya girmez
 codes.txt
 *codes*.txt
+
+# Özel anahtarlar asla depoya girmez
+keys/
+*_rsa
+*_rsa.pub

@@ -32,6 +32,7 @@ struct Config {
     std::string user = "nokey";
     std::string bind_host = "localhost";
     int bind_port = 80;
+    std::string key_file;   // özel anahtar dosyası (PEM, RSA); boşsa "none" kimlik doğrulama (localhost.run)
     std::string local_host = "127.0.0.1";
     int local_port = 8800;
     // DNS çözülemezse (konsolda çözümleyici yoksa) denenecek adresler: localhost.run'ın bilinen IP'leri.
@@ -42,6 +43,12 @@ using Logger = std::function<void(const std::string &)>;
 using UrlSink = std::function<void(const std::string &)>;
 
 namespace detail {
+
+// Serveo, anahtarı kayıtlı olmayanlara klavye-etkileşimli yoldan (soru sormadan) rastgele adres verir.
+inline void kbd_empty(const char *, int, const char *, int, int num_prompts, const LIBSSH2_USERAUTH_KBDINT_PROMPT *,
+                      LIBSSH2_USERAUTH_KBDINT_RESPONSE *responses, void **) {
+    for (int i = 0; i < num_prompts; i++) { responses[i].text = strdup(""); responses[i].length = 0; }
+}
 
 inline int tcp_connect(const std::string &host, int port, int timeout_s) {
     addrinfo hints{}, *res = nullptr;
@@ -74,7 +81,9 @@ inline std::string url_from_banner(const std::string &text) {
         pos = nl == std::string::npos ? text.size() : nl + 1;
         size_t h = line.find("https://");
         if (h == std::string::npos) continue;
-        if (line.find("tunneled") == std::string::npos && line.find("forwarding") == std::string::npos) continue;
+        std::string low = line;
+        for (auto &c : low) c = (char)tolower((unsigned char)c);
+        if (low.find("tunneled") == std::string::npos && low.find("forwarding") == std::string::npos) continue;
         size_t e = h;
         while (e < line.size() && !isspace((unsigned char)line[e]) && line[e] != '\r') e++;
         return line.substr(h, e - h);
@@ -146,6 +155,37 @@ inline bool run_once(const Config &cfg, const Logger &log, const UrlSink &sink, 
         log("tünel: sunucu anahtarı sha256 " + h);
     }
     char *methods = libssh2_userauth_list(session, cfg.user.c_str(), (unsigned)cfg.user.size());
+    if (!libssh2_userauth_authenticated(session) && !cfg.key_file.empty()) {
+        std::string key;
+        if (FILE *f = fopen(cfg.key_file.c_str(), "rb")) {
+            char kb[4096];
+            size_t n;
+            while ((n = fread(kb, 1, sizeof kb, f)) > 0) key.append(kb, n);
+            fclose(f);
+        }
+        if (key.empty()) { log("tünel: anahtar dosyası okunamadı: " + cfg.key_file); cleanup(); return false; }
+        std::string pub;   // <anahtar>.pub; libssh2'nin bellekten yüklemesi genel anahtar blobunu da ister
+        if (FILE *f = fopen((cfg.key_file + ".pub").c_str(), "rb")) {
+            char kb[2048];
+            size_t n;
+            while ((n = fread(kb, 1, sizeof kb, f)) > 0) pub.append(kb, n);
+            fclose(f);
+        }
+        int ar = libssh2_userauth_publickey_frommemory(session, cfg.user.c_str(), cfg.user.size(),
+                                                       pub.empty() ? nullptr : pub.data(), pub.size(),
+                                                       key.data(), key.size(), nullptr);
+        if (ar) {
+            char *emsg = nullptr;
+            libssh2_session_last_error(session, &emsg, nullptr, 0);
+            log("tünel: anahtar kabul edilmedi (" + std::to_string(ar) + " " + (emsg ? emsg : "?") +
+                "); anahtar kayıtlı değil olabilir, anonim yol deneniyor (adres rastgele olur)");
+            if (libssh2_userauth_keyboard_interactive_ex(session, cfg.user.c_str(), (unsigned)cfg.user.size(), &detail::kbd_empty)) {
+                log("tünel: anonim kimlik doğrulama da başarısız");
+                cleanup();
+                return false;
+            }
+        } else log("tünel: anahtarla kimlik doğrulandı");
+    }
     if (!libssh2_userauth_authenticated(session)) {
         log(std::string("tünel: kimlik doğrulama gerekli, yöntemler: ") + (methods ? methods : "?"));
         cleanup();

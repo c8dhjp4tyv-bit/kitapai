@@ -624,6 +624,9 @@ int main(int argc, char **argv) {
             if (k == "host") tc.host = v;
             else if (k == "port") tc.port = atoi(v.c_str());
             else if (k == "user") tc.user = v;
+            else if (k == "key") tc.key_file = v;
+            else if (k == "bind") tc.bind_host = v;
+            else if (k == "ips") { tc.fallback_ips.clear(); for (auto &ip : kc::split(v, ',')) if (!ip.empty()) tc.fallback_ips.push_back(ip); }
         }
         std::thread([tc] {
             tun::run_forever(tc, [](const std::string &m) { logf(m); }, [](const std::string &u) {
