@@ -119,6 +119,75 @@ class OpenAICompatEngine(Engine):
         return data["choices"][0]["message"]["content"]
 
 
+def chatml(messages: list[dict[str, str]]) -> str:
+    """Qwen2.5'in sohbet biçimi (eğitimdekiyle aynı), asistan sırası açık bırakılmış olarak."""
+    parts = [f"<|im_start|>{m['role']}\n{m['content']}<|im_end|>\n" for m in messages]
+    return "".join(parts) + "<|im_start|>assistant\n"
+
+
+class LlamaServerEngine(Engine):
+    """llama.cpp sunucusu (PS5LM'deki ya da yerel): TEK taban model + çalışma anında LoRA.
+
+    Seçici ve yazıcı aynı taban üzerinde iki LoRA'dır; sunucu `--lora a --lora b
+    --lora-init-without-apply` ile açılır ve her istek `lora` alanıyla birini açar, ötekini
+    kapatır. Model değiştirmek (PS5LM'de uygulamayı yeniden başlatır) gerekmez.
+
+    İstekte HİÇBİR ondalık sayı gönderilmez: PS5LM v0.8.x'te JSON'daki her ondalık sayı
+    (`"temperature": 0.7`) sunucuyu çökertiyor. Bu yüzden LoRA ölçeği dosyaya gömülüdür
+    (rsLoRA için `adapter.lora.alpha` = r·√r, istekte ölçek 1 ya da 0), açgözlü üretim
+    `top_k=1` ile istenir ve yazıcının sıcaklığı sunucu bayrağından (`--temp`) gelir.
+    """
+
+    name = "llama"
+
+    def __init__(
+        self,
+        base_url: str,
+        adapters: dict[str, int],
+        *,
+        timeout: float = 120.0,
+        transport=None,
+    ) -> None:
+        import httpx
+
+        if not base_url:
+            raise ValueError("llama sunucusu adresi boş (KITAPAI_LLAMA_URL)")
+        self.base_url = base_url.rstrip("/")
+        self.adapters = dict(adapters)
+        self.model_id = f"llama-server@{self.base_url.split('//')[-1]}"
+        self._client = httpx.Client(timeout=timeout, transport=transport)
+
+    def _lora(self, adapter: str | None) -> list[dict[str, int]]:
+        if adapter is not None and adapter not in self.adapters:
+            raise ValueError(f"bilinmeyen adaptör: {adapter} ({', '.join(self.adapters)})")
+        return [{"id": i, "scale": int(name == adapter)} for name, i in self.adapters.items()]
+
+    @staticmethod
+    def _no_floats(value) -> None:
+        if isinstance(value, float):
+            raise ValueError("istekte ondalık sayı olamaz (PS5LM v0.8.x'i çökertir)")
+        if isinstance(value, dict):
+            for v in value.values():
+                LlamaServerEngine._no_floats(v)
+        elif isinstance(value, list):
+            for v in value:
+                LlamaServerEngine._no_floats(v)
+
+    def generate(self, messages: list[dict[str, str]], **kwargs) -> str:
+        body: dict = {
+            "prompt": chatml(messages),
+            "n_predict": int(kwargs.get("max_new_tokens", 700)),
+            "cache_prompt": False,
+            "lora": self._lora(kwargs.get("adapter")),
+        }
+        if float(kwargs.get("temperature", 0) or 0) <= 0:
+            body["top_k"] = 1                    # açgözlü; sıcaklık > 0 ise sunucunun --temp'i
+        self._no_floats(body)
+        resp = self._client.post(f"{self.base_url}/completion", json=body)
+        resp.raise_for_status()
+        return resp.json()["content"]
+
+
 class TransformersEngine(Engine):
     """Yerel 4-bit taban model + LoRA adaptörü."""
 
@@ -287,6 +356,10 @@ def create_engine(settings, *, legacy: bool = False) -> Engine:
     name = settings.engine
     if name == "stub":
         return StubEngine()
+    if name == "llama":
+        adapters = {k: int(v) for k, v in (
+            item.split(":") for item in settings.llama_adapters.split(",") if item)}
+        return LlamaServerEngine(settings.llama_url, adapters)
     if name == "openai":
         return OpenAICompatEngine(
             settings.openai_base_url, settings.openai_model, settings.openai_api_key

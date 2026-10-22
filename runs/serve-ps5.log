@@ -1,0 +1,31 @@
+INFO:     Started server process [697630]
+INFO:     Waiting for application startup.
+19:50:45 INFO    kitapai.serve.catalog: katalog açıldı: /home/umutcagand/Masaüstü/kitapai/data/catalog.duckdb (2,429,885 kitap)
+19:50:45 INFO    kitapai.retrieval.dense: gömme indeksi yüklendi: 300,000 vektör × 384 boyut
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 11642.72it/s]
+[1mBertModel LOAD REPORT[0m from: intfloat/multilingual-e5-small
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+19:51:03 INFO    kitapai.serve.pipeline: öneri bd69b08d3a02: 3 sonuç, 40 aday, 17262 ms (getir 12386 · seç 1958 · yaz 2914, 451 kr)
+19:51:03 INFO    kitapai.serve.app: hazır — katalog 2,429,885, dump None, istem sürümü 3.0
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8765 (Press CTRL+C to quit)
+INFO:     127.0.0.1:60632 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60644 - "GET /health HTTP/1.1" 200 OK
+19:51:23 INFO    kitapai.serve.pipeline: öneri 83d8729b214e: 3 sonuç, 40 aday, 7204 ms (getir 2447 · seç 1716 · yaz 3039, 472 kr)
+INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
+19:51:29 INFO    kitapai.serve.pipeline: öneri a4bcf67a8dd7: 3 sonuç, 40 aday, 6571 ms (getir 2158 · seç 1588 · yaz 2823, 423 kr)
+INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
+19:51:37 INFO    kitapai.serve.pipeline: öneri f6d5f33443df: 3 sonuç, 40 aday, 7267 ms (getir 2054 · seç 2215 · yaz 2995, 468 kr)
+INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
+19:51:44 INFO    kitapai.serve.pipeline: öneri 68b8024c388f: 3 sonuç, 40 aday, 7600 ms (getir 2207 · seç 2098 · yaz 3293, 478 kr)
+INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
+19:51:50 INFO    kitapai.serve.pipeline: öneri d1a74cc61f50: 3 sonuç, 40 aday, 6313 ms (getir 1576 · seç 2335 · yaz 2400, 371 kr)
+INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
+19:51:56 INFO    kitapai.serve.pipeline: öneri 8910fafe135a: 3 sonuç, 40 aday, 5282 ms (getir 1572 · seç 1184 · yaz 2525, 374 kr)
+INFO:     127.0.0.1:35168 - "POST /api/recommend HTTP/1.1" 200 OK
+INFO:     Shutting down

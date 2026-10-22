@@ -15,7 +15,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from . import paths
 
-EngineName = Literal["transformers", "openai", "stub"]
+EngineName = Literal["transformers", "openai", "llama", "stub"]
 
 
 class Settings(BaseSettings):
@@ -48,6 +48,10 @@ class Settings(BaseSettings):
     temperature: float = 0.6
     top_p: float = 0.9
     load_in_4bit: bool = True
+
+    # llama.cpp sunucusu, tek taban + çalışma anında LoRA (PS5LM ya da yerel llama-server)
+    llama_url: str = ""                      # örn. http://192.168.1.105:8081
+    llama_adapters: str = "select:0,write:1"  # ad:sunucudaki LoRA kimliği (--lora sırası)
 
     # OpenAI-uyumlu motor (llama.cpp / vLLM)
     openai_base_url: str = "http://127.0.0.1:8080/v1"

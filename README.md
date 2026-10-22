@@ -245,6 +245,11 @@ kitapai serve --port 8765
 Adaptörler `Qwen/Qwen2.5-3B-Instruct` tabanı üzerinedir; taban modelin lisansı (Qwen Research
 License) geçerlidir. Ayrıntı ve sağlama toplamları release notlarında.
 
+## PS5'te çalıştırma
+
+Modeller jailbreak'li bir PS5'te (PS5LM ile) da çalışır: tek taban model + iki LoRA, sunucu motoru
+`KITAPAI_ENGINE=llama`. Adımlar ve tuzaklar için [`scripts/ps5/README.md`](scripts/ps5/README.md).
+
 ## Proje düzeni
 
 ```
