@@ -40,3 +40,7 @@ clients/android/android/.gradle/
 # Araç önbellekleri
 unsloth_compiled_cache/
 .claude/
+
+# Davet kodları asla depoya girmez
+codes.txt
+*codes*.txt
