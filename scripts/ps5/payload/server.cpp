@@ -15,6 +15,7 @@
 #include <atomic>
 #include <ctime>
 #include <fstream>
+#include <future>
 #include <mutex>
 #include <sstream>
 #include <thread>
@@ -141,6 +142,7 @@ struct HttpRequest {
 };
 
 struct HttpResponse {
+    bool sent = false;   // yanıt akıtılarak zaten gönderildi (serve_connection tekrar yazmaz)
     int status = 200;
     std::string type = "application/json; charset=utf-8", body;
     std::vector<std::pair<std::string, std::string>> extra;
@@ -394,7 +396,7 @@ kj::Json search_json(const std::vector<int> &docs, long long ms, const char *eng
     return r;
 }
 
-HttpResponse handle_api(const HttpRequest &req) {
+HttpResponse handle_api(const HttpRequest &req, int fd) {
     const std::string &p = req.path;
     if (p == "/health") {
         kj::Json j = kj::Json::object();
@@ -458,9 +460,30 @@ HttpResponse handle_api(const HttpRequest &req) {
             return error_response(503, "model_loading", "Model yükleniyor, yaklaşık bir dakika sonra tekrar dene.");
         kc::PipelineConfig pc;
         pc.model_id = cfg.model_id;
-        kj::Json out = kc::recommend(catalog, meta, r, llama_call, pc);
+        // Bazı aracı servisler (serveo ~5 sn) yanıt BAŞLIĞINI bekleyip zaman aşımına uğruyor; öneri ise
+        // 4-6 sn sürüyor. Ön kontroller (kod, doğrulama, model hazır) yukarıda bitti ve hataları anında
+        // döndürdü; buradan sonrası 200'dür. İş uzarsa başlığı hemen gönderip gövdeyi parça parça yaz.
+        auto work = std::async(std::launch::async, [&] { return kc::recommend(catalog, meta, r, llama_call, pc); });
+        if (work.wait_for(std::chrono::milliseconds(1500)) != std::future_status::ready) {
+            std::string head = "HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=utf-8\r\n"
+                               "Transfer-Encoding: chunked\r\nConnection: close\r\nCache-Control: no-store\r\n"
+                               "Access-Control-Allow-Origin: *\r\n\r\n";
+            send_all(fd, head.data(), head.size());
+            // Başlık gittikten sonra boşluk baytlarıyla bağlantıyı canlı tut (JSON başındaki boşluk geçerli).
+            while (work.wait_for(std::chrono::seconds(2)) != std::future_status::ready)
+                send_all(fd, "1\r\n \r\n", 6);
+            std::string body = kj::dump(work.get());
+            char sz[24];
+            snprintf(sz, sizeof sz, "%zx\r\n", body.size());
+            std::string chunk = std::string(sz) + body + "\r\n0\r\n\r\n";
+            send_all(fd, chunk.data(), chunk.size());
+            logf("öneri (akışlı): \"" + kt::prefix(r.query, 60) + "\" " + std::to_string(ms()) + " ms");
+            HttpResponse done;
+            done.sent = true;
+            return done;
+        }
         logf("öneri: \"" + kt::prefix(r.query, 60) + "\" " + std::to_string(ms()) + " ms");
-        return json_response(200, out);
+        return json_response(200, work.get());
     }
     if (p == "/api/search") {
         auto q = parse_query(req.query);
@@ -557,7 +580,7 @@ void serve_connection(int fd) {
         r.status = 204;
         write_response(fd, r);
     } else if (req.path == "/health" || req.path.compare(0, 5, "/api/") == 0) {
-        write_response(fd, handle_api(req));
+        { HttpResponse r = handle_api(req, fd); if (!r.sent) write_response(fd, r); }
     } else if (req.method == "GET" || req.method == "HEAD") {
         write_response(fd, handle_static(req), req.method == "HEAD");
     } else {
